@@ -1,0 +1,228 @@
+CCQ1. What processes are required to conduct a survey?
+Through Implementation
+PREFIX : <https://w3id.org/sdp/core#>
+
+select ?StatisticalProgram ?StatisticalProgramCycle ?BusinessProcess ?Process where { 
+	?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
+    ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
+    ?BusinessProcess :hasBP-PS ?Process .
+} limit 100 
+
+Through Specification
+
+
+
+CQ2. What metadata is required to create a survey?
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+
+select ?StatisticalProgram ?Process ?MetadataInput ?p ?MetadataValue where { 
+    ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
+    ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
+    ?BusinessProcess :hasBP-PS ?Process .
+    ?Process rdf:type gsim-sum:ProcessStep .
+    ?Process :hasPS-PI ?ProcessInput .
+    ?ProcessInput :refersToCI-IA ?MetadataInput.
+    ?MetadataInput ?p ?MetadataValue .
+    FILTER(
+    	CONTAINS(str(?p),"has")
+        &&
+        !CONTAINS(str(?p),"hasName")
+    ).
+} limit 100
+
+
+
+CQ3. What metadata is produced by each process in the statistical data production?
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+
+select ?StatisticalProgram ?Process ?MetadataOutput ?p ?MetadataValue where { 
+    ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
+    ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
+    ?BusinessProcess :hasBP-PS ?Process .
+    ?Process rdf:type gsim-sum:ProcessStep .
+    ?Process :createsPS-PO ?ProcessOutput .
+    ?ProcessOutput :refersToCO-IA ?MetadataOutput.
+    ?MetadataOutput ?p ?MetadataValue .
+    FILTER(
+    	CONTAINS(str(?p),"has")
+        &&
+        !CONTAINS(str(?p),"hasName")
+    ).
+} limit 100
+
+
+CQ1-3
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+select ?StatisticalProgram ?Process ?MetadataInput ?valueInput ?MetadataOutput ?valueOutput where { 
+    ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
+    ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
+    ?BusinessProcess :hasBP-PS ?Process .
+    ?Process rdf:type :ProcessStep .
+    ?Process :hasPS-PI ?ProcessInput .
+    ?ProcessInput :refersToCI-IA ?MetadataInput.
+    ?MetadataInput ?pInput ?valueInput .
+    FILTER(
+    	CONTAINS(str(?pInput),"has")
+        &&
+        !CONTAINS(str(?pInput),"hasName")
+    ).
+    ?Process :createsPS-PO ?ProcessOutput .
+    ?ProcessOutput :refersToCO-IA ?MetadataOutput.
+    ?MetadataOutput ?pOutput ?valueOutput .
+    FILTER(
+    	CONTAINS(str(?pOutput),"has")
+        &&
+        !CONTAINS(str(?pOutput),"hasName")
+    ).
+} limit 100
+
+
+
+• CQ4. Do the production processes occur sequentially in accordance with the order specified by GSBPM?
+(By Time)
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+select ?StatisticalProgram ?Process ?Start ?End where { 
+    ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
+    ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
+    ?BusinessProcess :hasBP-PS ?Process .
+    ?Process rdf:type gsim-sum:ProcessStep .
+ 	?Process :hasStartTime-PS ?Start .
+    ?Process :hasEndTime-PS ?End .
+} limit 100
+
+(By GSBPM Code and Time)
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+select ?StatisticalProgram ?Process ?ProcessCode ?Start ?End where { 
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?ProcessDesign :specifiesPD-PS ?Process .
+    ?ProcessDesign :classifiedAs ?ProcessCode .
+    ?Process rdf:type gsim-sum:ProcessStep .
+ 	?Process :hasStartTime-PS ?Start .
+    ?Process :hasEndTime-PS ?End .
+} limit 100
+
+
+
+• CQ5. What metadata falls under the categories of planning, implementation, dissemination, and evaluation?
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+select ?StatisticalProgram ?Process ?ProcessCode ?phase ?Start ?End where { 
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?ProcessDesign :specifiesPD-PS ?Process .
+    ?ProcessDesign :classifiedAs ?ProcessCode .
+    ?ProcessCode skos:broader / skos:prefLabel ?phase .
+    ?Process rdf:type gsim-sum:ProcessStep .
+ 	?Process :hasStartTime-PS ?Start .
+    ?Process :hasEndTime-PS ?End .
+} limit 100
+
+
+
+• CQ6. Can the processes in statistical data production be audited?
+Based on Process Log
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select ?StatisticalProgram  ?Process ?ProcessExecutionLog ?log where { 
+	?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?Process :createsPS-PO ?ProcessExecutionLog .
+    ?ProcessExecutionLog a :ProcessExecutionLog .
+    ?ProcessExecutionLog gsim-sum:hasExecutionLog ?log .
+} limit 100 
+
+
+Perubahan suatu jenis metadata karena suatu proses tertentu
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+select ?Process ?MetadataInput ?valueInput ?MetadataOutput ?valueOutput where { 
+    ?Process rdf:type :ProcessStep .
+    ?Process :hasPS-PI ?ProcessInput .
+    ?ProcessInput :refersToCI-IA ?MetadataInput.
+    ?MetadataInput rdf:type gsim-sum:ChangeDefinition .
+    ?MetadataInput ?pInput ?valueInput .
+    FILTER(
+    	CONTAINS(str(?pInput),"has")
+        &&
+        !CONTAINS(str(?pInput),"hasName")
+    ).
+    ?Process :createsPS-PO ?ProcessOutput .
+    ?ProcessOutput :refersToCO-IA ?MetadataOutput.
+    ?MetadataOutput rdf:type gsim-sum:ChangeDefinition .
+    ?MetadataOutput ?pOutput ?valueOutput .
+    FILTER(
+    	CONTAINS(str(?pOutput),"has")
+        &&
+        !CONTAINS(str(?pOutput),"hasName")
+    ).
+} limit 100 
+
+• CQ7. Is the design or planned process always consistent with the actual process execution?
+Process Input
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+SELECT ?StatisticalProgram ?Process ?ProcessDesign (?CoreInputType as ?TypeMetadataPlan) (?MetadataInput as ?MetadataReal) (?MetadataType as ?TypeMetadataReal) (?valueInput as ?ValueOfMetadataReal) where { 
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?ProcessDesign :specifiesPD-PS ?Process .
+    ?ProcessDesign :hasPD-PIS ?ProcessInputSpecification .
+    ?ProcessInputSpecification :coreInputType ?CoreInputType .
+    ?Process rdf:type :ProcessStep .
+    ?Process :hasPS-PI ?MetadataInput.
+    ?MetadataInput ?pInput ?valueInput .
+    ?MetadataInput rdf:type ?MetadataType .
+    FILTER(
+    	CONTAINS(str(?pInput),"has")
+        &&
+        CONTAINS(str(?MetadataType),"gsim-sum")
+        &&
+        !CONTAINS(str(?MetadataType),"IdentifiableArtefact")
+    ).
+} 
+
+Process Output
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+select ?StatisticalProgram ?Process ?ProcessDesign (?CoreOutputType as ?TypeMetadataPlan) (?MetadataOutput as ?MetadataReal) (?MetadataType as ?TypeMetadataReal) (?valueOutput as ?ValueOfMetadataReal) where { 
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?ProcessDesign :specifiesPD-PS ?Process .
+    ?ProcessDesign :hasPD-POS ?ProcessOutputSpecification .
+    ?ProcessOutputSpecification :coreOutputType ?CoreOutputType .
+    ?Process rdf:type :ProcessStep .
+    ?Process :createsPS-PO / :refersToCO-IA ?MetadataOutput.
+    ?MetadataOutput ?pOutput ?valueOutput .
+    ?MetadataOutput rdf:type ?MetadataType .
+    FILTER(
+    	CONTAINS(str(?pOutput),"has")
+        &&
+        !CONTAINS(str(?pOutput),"Name")
+        &&
+        CONTAINS(str(?MetadataType),"gsim-sum")
+        &&
+        !CONTAINS(str(?MetadataType),"IdentifiableArtefact")
+    ).
+} 
