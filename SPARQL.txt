@@ -22,7 +22,7 @@ select ?StatisticalProgram ?Process ?MetadataInput ?p ?MetadataValue where {
     ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
     ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
     ?BusinessProcess :hasBP-PS ?Process .
-    ?Process rdf:type gsim-sum:ProcessStep .
+    ?Process rdf:type :ProcessStep .
     ?Process :hasPS-PI ?ProcessInput .
     ?ProcessInput :refersToCI-IA ?MetadataInput.
     ?MetadataInput ?p ?MetadataValue .
@@ -45,7 +45,7 @@ select ?StatisticalProgram ?Process ?MetadataOutput ?p ?MetadataValue where {
     ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
     ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
     ?BusinessProcess :hasBP-PS ?Process .
-    ?Process rdf:type gsim-sum:ProcessStep .
+    ?Process rdf:type :ProcessStep .
     ?Process :createsPS-PO ?ProcessOutput .
     ?ProcessOutput :refersToCO-IA ?MetadataOutput.
     ?MetadataOutput ?p ?MetadataValue .
@@ -97,12 +97,12 @@ select ?StatisticalProgram ?Process ?Start ?End where {
     ?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
     ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
     ?BusinessProcess :hasBP-PS ?Process .
-    ?Process rdf:type gsim-sum:ProcessStep .
+    ?Process rdf:type :ProcessStep .
  	?Process :hasStartTime-PS ?Start .
     ?Process :hasEndTime-PS ?End .
 } limit 100
 
-(By GSBPM Code and Time)
+(By GSBPM Code and Time) : Specification View
 PREFIX : <https://w3id.org/sdp/core#>
 PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -110,15 +110,32 @@ PREFIX gsim: <http://rdf.unece.org/models/gsim#>
 select ?StatisticalProgram ?Process ?ProcessCode ?Start ?End where { 
     ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
     ?ProcessDesign :specifiesPD-PS ?Process .
-    ?ProcessDesign :classifiedAs ?ProcessCode .
-    ?Process rdf:type gsim-sum:ProcessStep .
+    ?ProcessDesign :classifiedAs-PD ?ProcessCode .
+    ?Process rdf:type :ProcessStep .
+ 	?Process :hasStartTime-PS ?Start .
+    ?Process :hasEndTime-PS ?End .
+} limit 100
+
+OR 
+
+(By GSBPM Code and Time) : Implementataion View
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+select ?StatisticalProgram ?Process ?ProcessCode ?Start ?End where { 
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?Process :classifiedAs-PS ?ProcessCode .
+    ?Process rdf:type :ProcessStep .
  	?Process :hasStartTime-PS ?Start .
     ?Process :hasEndTime-PS ?End .
 } limit 100
 
 
 
+
 • CQ5. What metadata falls under the categories of planning, implementation, dissemination, and evaluation?
+Specification View
 PREFIX : <https://w3id.org/sdp/core#>
 PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -127,9 +144,26 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 select ?StatisticalProgram ?Process ?ProcessCode ?phase ?Start ?End where { 
     ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
     ?ProcessDesign :specifiesPD-PS ?Process .
-    ?ProcessDesign :classifiedAs ?ProcessCode .
+    ?ProcessDesign :classifiedAs-PD ?ProcessCode .
     ?ProcessCode skos:broader / skos:prefLabel ?phase .
-    ?Process rdf:type gsim-sum:ProcessStep .
+    ?Process rdf:type :ProcessStep .
+ 	?Process :hasStartTime-PS ?Start .
+    ?Process :hasEndTime-PS ?End .
+} limit 100
+
+OR
+
+Implementataion View
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gsim: <http://rdf.unece.org/models/gsim#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+select ?StatisticalProgram ?Process ?ProcessCode ?phase ?Start ?End where { 
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?Process :classifiedAs-PS ?ProcessCode .
+    ?ProcessCode skos:broader / skos:prefLabel ?phase .
+    ?Process rdf:type :ProcessStep .
  	?Process :hasStartTime-PS ?Start .
     ?Process :hasEndTime-PS ?End .
 } limit 100
@@ -151,7 +185,7 @@ select ?StatisticalProgram  ?Process ?ProcessExecutionLog ?log where {
 } limit 100 
 
 
-Perubahan suatu jenis metadata karena suatu proses tertentu
+Trace the changes of a specific metadata content (ex: ChangeDefinition) due to execution a certain process
 PREFIX : <https://w3id.org/sdp/core#>
 PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -226,3 +260,14 @@ select ?StatisticalProgram ?Process ?ProcessDesign (?CoreOutputType as ?TypeMeta
         !CONTAINS(str(?MetadataType),"IdentifiableArtefact")
     ).
 } 
+
+
+CQ8. What applications can be used to assist processes in statistical data production?
+PREFIX : <https://w3id.org/sdp/core#>
+
+select ?StatisticalProgram ?StatisticalProgramCycle ?BusinessProcess ?Process ?ApplicationPackage where { 
+	?StatisticalProgram :hasSP-SPC ?StatisticalProgramCycle .
+    ?StatisticalProgramCycle :includesSPC-BP ?BusinessProcess .
+    ?BusinessProcess :hasBP-PS ?Process .
+    ?Process :usePS-PKG ?ApplicationPackage.
+} limit 100 
