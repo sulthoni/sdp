@@ -20,6 +20,7 @@
 @prefix gsbpm: <http://rdf.unece.org/models/gsbpm#> .
 @prefix icspa: <http://id.unece.org/models/cspa/services/> .
 @prefix id-ps: <https://www.bps.go.id/survey/population-census#> .
+@prefix igamso: <http://id.unece.org/models/gamso/> .
 @prefix igsbpm: <http://id.unece.org/models/gsbpm/> .
 @prefix kshrts: <https://www.ksh.hu/survey/retail-trade-statistics#> .
 @prefix gsim-sum: <https://w3id.org/italia/onto/gsim-sum#> .
@@ -2511,44 +2512,44 @@ The basic methodologies used in this service are described in the attached docum
 
 
 ###  http://id.unece.org/models/gamso/CapabilityDevelopmentActivity
-<http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> rdf:type owl:NamedIndividual ,
-                                                                          gamso:StatisticalSupportingActivity ;
-                                                                 skos:definition "This activity area includes research, development and innovation activities i.e. the development of capabilities that enable the organisation to undertake new activities, or to improve the efficiency of existing ones. It promotes the re-use and sharing of infrastructure (statistical and technical), both inside the organisation and across organisations, to facilitate harmonisation and to improve the coherence of statistical outputs. Some of these activities may be outsourced to partners in the private or academic sectors, or even to other statistical organisations. When a new capability or a capability improvement is fully integrated in Production, its support is transferred to one or more activities of Corporate Support."@en ;
-                                                                 skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                 skos:narrower <http://id.unece.org/models/gamso/DevelopCapabilityImprovementsActivity> ,
-                                                                               <http://id.unece.org/models/gamso/MonitorCapabilityImprovementsActivity> ,
-                                                                               <http://id.unece.org/models/gamso/PlanCapabilityImprovementsActivity> ,
-                                                                               <http://id.unece.org/models/gamso/TransferSupportOfCapabilityImprovementsActivity> ;
-                                                                 skos:notation "2" ;
-                                                                 skos:prefLabel "Capability Management" ;
-                                                                 skos:topConceptOf <http://id.unece.org/models/gamso/GAMSO> .
+igamso:CapabilityDevelopmentActivity rdf:type owl:NamedIndividual ,
+                                              gamso:StatisticalSupportingActivity ;
+                                     skos:definition "This activity area includes research, development and innovation activities i.e. the development of capabilities that enable the organisation to undertake new activities, or to improve the efficiency of existing ones. It promotes the re-use and sharing of infrastructure (statistical and technical), both inside the organisation and across organisations, to facilitate harmonisation and to improve the coherence of statistical outputs. Some of these activities may be outsourced to partners in the private or academic sectors, or even to other statistical organisations. When a new capability or a capability improvement is fully integrated in Production, its support is transferred to one or more activities of Corporate Support."@en ;
+                                     skos:inScheme igamso:GAMSO ;
+                                     skos:narrower igamso:DevelopCapabilityImprovementsActivity ,
+                                                   igamso:MonitorCapabilityImprovementsActivity ,
+                                                   igamso:PlanCapabilityImprovementsActivity ,
+                                                   igamso:TransferSupportOfCapabilityImprovementsActivity ;
+                                     skos:notation "2" ;
+                                     skos:prefLabel "Capability Management" ;
+                                     skos:topConceptOf igamso:GAMSO .
 
 
 ###  http://id.unece.org/models/gamso/CorporateSupportActivity
-<http://id.unece.org/models/gamso/CorporateSupportActivity> rdf:type owl:NamedIndividual ,
-                                                                     gamso:StatisticalSupportingActivity ;
-                                                            skos:definition "These activities support standardisation. They cover the cross-cutting activities required by the organisation to deliver its work programme efficiently and effectively. When a capability improvement is fully integrated in Production, its support is transferred to one or more activities of Corporate Support."@en ;
-                                                            skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                            skos:narrower <http://id.unece.org/models/gamso/ManageBuildingsAndPhysicalSpaceActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageBusinessPerformanceAndLegislationActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageCustomersActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageDataSuppliersActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageFinancesActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageHumanResourcesActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageITActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageInformationAndKnowledgeActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageQualityActivity> ,
-                                                                          <http://id.unece.org/models/gamso/ManageStatisticalMethodologyActivity> ;
-                                                            skos:notation "3" ;
-                                                            skos:prefLabel "Corporate Support" ;
-                                                            skos:topConceptOf <http://id.unece.org/models/gamso/GAMSO> .
+igamso:CorporateSupportActivity rdf:type owl:NamedIndividual ,
+                                         gamso:StatisticalSupportingActivity ;
+                                skos:definition "These activities support standardisation. They cover the cross-cutting activities required by the organisation to deliver its work programme efficiently and effectively. When a capability improvement is fully integrated in Production, its support is transferred to one or more activities of Corporate Support."@en ;
+                                skos:inScheme igamso:GAMSO ;
+                                skos:narrower igamso:ManageBuildingsAndPhysicalSpaceActivity ,
+                                              igamso:ManageBusinessPerformanceAndLegislationActivity ,
+                                              igamso:ManageCustomersActivity ,
+                                              igamso:ManageDataSuppliersActivity ,
+                                              igamso:ManageFinancesActivity ,
+                                              igamso:ManageHumanResourcesActivity ,
+                                              igamso:ManageITActivity ,
+                                              igamso:ManageInformationAndKnowledgeActivity ,
+                                              igamso:ManageQualityActivity ,
+                                              igamso:ManageStatisticalMethodologyActivity ;
+                                skos:notation "3" ;
+                                skos:prefLabel "Corporate Support" ;
+                                skos:topConceptOf igamso:GAMSO .
 
 
 ###  http://id.unece.org/models/gamso/DefineVisionActivity
-<http://id.unece.org/models/gamso/DefineVisionActivity> rdf:type owl:NamedIndividual ,
-                                                                 gamso:StrategyAndLeadershipActivity ;
-                                                        skos:broader <http://id.unece.org/models/gamso/StrategyAndLeadershipActivity> ;
-                                                        skos:definition """These activities ensure that statistical organisations understand the environment in which they operate and the emerging issues they are confronted with, so that it is clear where they can provide independent, evidence-based information, as well as statistical standards and infrastructure, for use by governments and the broader community. 
+igamso:DefineVisionActivity rdf:type owl:NamedIndividual ,
+                                     gamso:StrategyAndLeadershipActivity ;
+                            skos:broader igamso:StrategyAndLeadershipActivity ;
+                            skos:definition """These activities ensure that statistical organisations understand the environment in which they operate and the emerging issues they are confronted with, so that it is clear where they can provide independent, evidence-based information, as well as statistical standards and infrastructure, for use by governments and the broader community. 
 
 Based on this, statistical organisations determine their high-level goals and directions, including the values which will guide them, so they set their statistical programmes accordingly. This also includes communicating the mission, values and expectations internally and externally, to lead and inspire staff and to increase government and community trust and confidence in the organisation and in official statistics in general. These include:
 
@@ -2557,16 +2558,16 @@ Based on this, statistical organisations determine their high-level goals and di
 • Determine organisational value proposition
 • Determine and communicate values and expectations
 • Create interest and awareness"""@en ;
-                                                        skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                        skos:notation "1.1" ;
-                                                        skos:prefLabel "Define Vision"@en .
+                            skos:inScheme igamso:GAMSO ;
+                            skos:notation "1.1" ;
+                            skos:prefLabel "Define Vision"@en .
 
 
 ###  http://id.unece.org/models/gamso/DevelopCapabilityImprovementsActivity
-<http://id.unece.org/models/gamso/DevelopCapabilityImprovementsActivity> rdf:type owl:NamedIndividual ,
-                                                                                  gamso:CapabilityDevelopmentActivity ;
-                                                                         skos:broader <http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> ;
-                                                                         skos:definition """These activities develop approved improvement projects from the requirements stage through to their completion. The developers will undertake background research, define the detailed requirements, coordinate the design and building, and finalize all aspects of the capabilities being developed, including their deployment for operational use. 
+igamso:DevelopCapabilityImprovementsActivity rdf:type owl:NamedIndividual ,
+                                                      gamso:CapabilityDevelopmentActivity ;
+                                             skos:broader igamso:CapabilityDevelopmentActivity ;
+                                             skos:definition """These activities develop approved improvement projects from the requirements stage through to their completion. The developers will undertake background research, define the detailed requirements, coordinate the design and building, and finalize all aspects of the capabilities being developed, including their deployment for operational use. 
 
 The activities mainly concern the development of capability improvements for multiple statistical business processes, including cases where capability improvements are developed through partnering with other statistical organisation or through implementing reusable infrastructure originally developed by others. Capability improvements in the context of a single statistical business process are included in the Production activity area. 
 
@@ -2575,25 +2576,25 @@ The activities include:
 • Define detailed capability requirements
 • Design capability solution
 • Build/procure and deploy capability solution"""@en ;
-                                                                         skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                         skos:notation "2.2" ;
-                                                                         skos:prefLabel "Develop Capability Improvement"@en .
+                                             skos:inScheme igamso:GAMSO ;
+                                             skos:notation "2.2" ;
+                                             skos:prefLabel "Develop Capability Improvement"@en .
 
 
 ###  http://id.unece.org/models/gamso/GAMSO
-<http://id.unece.org/models/gamso/GAMSO> rdf:type owl:NamedIndividual ,
-                                                  skos:ConceptScheme ;
-                                         rdfs:label "Supporting Activity For Statistical Organisations"@en ;
-                                         skos:hasTopConcept <http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> ,
-                                                            <http://id.unece.org/models/gamso/CorporateSupportActivity> ,
-                                                            <http://id.unece.org/models/gamso/StrategyAndLeadershipActivity> .
+igamso:GAMSO rdf:type owl:NamedIndividual ,
+                      skos:ConceptScheme ;
+             rdfs:label "Supporting Activity For Statistical Organisations"@en ;
+             skos:hasTopConcept igamso:CapabilityDevelopmentActivity ,
+                                igamso:CorporateSupportActivity ,
+                                igamso:StrategyAndLeadershipActivity .
 
 
 ###  http://id.unece.org/models/gamso/GovernAndLeadActivity
-<http://id.unece.org/models/gamso/GovernAndLeadActivity> rdf:type owl:NamedIndividual ,
-                                                                  gamso:StrategyAndLeadershipActivity ;
-                                                         skos:broader <http://id.unece.org/models/gamso/StrategyAndLeadershipActivity> ;
-                                                         skos:definition """These activities cover the development of strategies to achieve the goals and directions set under Define Vision. They include identification and prioritisation of the statistical work programme, prioritisation of the capital investment programme, and the allocation of resources (capital and labour) to implement the agreed programmes defined in the statistical product and service and capability portfolios. 
+igamso:GovernAndLeadActivity rdf:type owl:NamedIndividual ,
+                                      gamso:StrategyAndLeadershipActivity ;
+                             skos:broader igamso:StrategyAndLeadershipActivity ;
+                             skos:definition """These activities cover the development of strategies to achieve the goals and directions set under Define Vision. They include identification and prioritisation of the statistical work programme, prioritisation of the capital investment programme, and the allocation of resources (capital and labour) to implement the agreed programmes defined in the statistical product and service and capability portfolios. 
 
 Under Govern and Lead the need for capability improvements is identified and requested by prioritising the capability portfolio, under Capability Development the requested and prioritized capability improvements are planned in more detail, developed, monitored and after their full integration in Production their support is transferred to Corporate Support. 
 
@@ -2607,148 +2608,148 @@ Activities under Govern and Lead include:
 • Ensure general coordination and alignment
 • Define general organisational policies
 • Publish policies, guidelines and normative documents"""@en ;
-                                                         skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                         skos:notation "1.2" ;
-                                                         skos:prefLabel "Govern and Lead"@en .
+                             skos:inScheme igamso:GAMSO ;
+                             skos:notation "1.2" ;
+                             skos:prefLabel "Govern and Lead"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageBuildingsAndPhysicalSpaceActivity
-<http://id.unece.org/models/gamso/ManageBuildingsAndPhysicalSpaceActivity> rdf:type owl:NamedIndividual ,
-                                                                                    gamso:CorporateSupportActivity ;
-                                                                           skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                                           skos:definition """These activities cover maintenance of the building and allocation of physical space the organisation occupies. These include:
+igamso:ManageBuildingsAndPhysicalSpaceActivity rdf:type owl:NamedIndividual ,
+                                                        gamso:CorporateSupportActivity ;
+                                               skos:broader igamso:CorporateSupportActivity ;
+                                               skos:definition """These activities cover maintenance of the building and allocation of physical space the organisation occupies. These include:
 • Manage environmental, mechanical, and electrical needs
 • Manage arrangement of office space
 • Manage distribution of offices within space"""@en ;
-                                                                           skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                           skos:notation "3.9" ;
-                                                                           skos:prefLabel "Manage Building and Physical Space"@en .
+                                               skos:inScheme igamso:GAMSO ;
+                                               skos:notation "3.9" ;
+                                               skos:prefLabel "Manage Building and Physical Space"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageBusinessPerformanceAndLegislationActivity
-<http://id.unece.org/models/gamso/ManageBusinessPerformanceAndLegislationActivity> rdf:type owl:NamedIndividual ,
-                                                                                            gamso:CorporateSupportActivity ;
-                                                                                   skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                                                   skos:definition """These activities manage how the organisation conducts its business, including agreed changes to the business, in order to achieve planned outputs and outcomes. These include:
+igamso:ManageBusinessPerformanceAndLegislationActivity rdf:type owl:NamedIndividual ,
+                                                                gamso:CorporateSupportActivity ;
+                                                       skos:broader igamso:CorporateSupportActivity ;
+                                                       skos:definition """These activities manage how the organisation conducts its business, including agreed changes to the business, in order to achieve planned outputs and outcomes. These include:
 • Manage business performance
 • Manage change and risk
 • Manage legislation & compliance"""@en ;
-                                                                                   skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                                   skos:notation "3.1" ;
-                                                                                   skos:prefLabel "Manage Business and Performance"@en .
+                                                       skos:inScheme igamso:GAMSO ;
+                                                       skos:notation "3.1" ;
+                                                       skos:prefLabel "Manage Business and Performance"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageCustomersActivity
-<http://id.unece.org/models/gamso/ManageCustomersActivity> rdf:type owl:NamedIndividual ,
-                                                                    gamso:CorporateSupportActivity ;
-                                                           skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                           skos:definition """These activities cover the management of communication and exchanges between governmental or international institutions, the public, and other stakeholders in direct or indirect support of organisational services. They therefore deal with the relationships between statistical organisations and the public, including those via the media. This includes general marketing activities and dealing with non-specific consumer feedback. This also includes measures to educate and inform users so that they fully understand statistical outputs, and to promote and improve levels of statistical literacy in society in general. These include:
+igamso:ManageCustomersActivity rdf:type owl:NamedIndividual ,
+                                        gamso:CorporateSupportActivity ;
+                               skos:broader igamso:CorporateSupportActivity ;
+                               skos:definition """These activities cover the management of communication and exchanges between governmental or international institutions, the public, and other stakeholders in direct or indirect support of organisational services. They therefore deal with the relationships between statistical organisations and the public, including those via the media. This includes general marketing activities and dealing with non-specific consumer feedback. This also includes measures to educate and inform users so that they fully understand statistical outputs, and to promote and improve levels of statistical literacy in society in general. These include:
 • Manage communications and media relations
 • Manage stakeholder consultations
 • Manage cross-product user support"""@en ;
-                                                           skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                           skos:notation "3.7" ;
-                                                           skos:prefLabel "Manage Consumers"@en .
+                               skos:inScheme igamso:GAMSO ;
+                               skos:notation "3.7" ;
+                               skos:prefLabel "Manage Consumers"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageDataSuppliersActivity
-<http://id.unece.org/models/gamso/ManageDataSuppliersActivity> rdf:type owl:NamedIndividual ,
-                                                                        gamso:CorporateSupportActivity ;
-                                                               skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                               skos:definition """These activities cover the relationships with sub-national governments and private entities that supply data for statistical activities. This includes cross-process burden management, as well as topics such as profiling and management of contact information (and thus has particularly close links with statistical business processes that maintain registers. These include:
+igamso:ManageDataSuppliersActivity rdf:type owl:NamedIndividual ,
+                                            gamso:CorporateSupportActivity ;
+                                   skos:broader igamso:CorporateSupportActivity ;
+                                   skos:definition """These activities cover the relationships with sub-national governments and private entities that supply data for statistical activities. This includes cross-process burden management, as well as topics such as profiling and management of contact information (and thus has particularly close links with statistical business processes that maintain registers. These include:
 • Manage data sharing agreements
 • Manage data transfer"""@en ;
-                                                               skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                               skos:notation "3.8" ;
-                                                               skos:prefLabel "Manage Data Supplier"@en .
+                                   skos:inScheme igamso:GAMSO ;
+                                   skos:notation "3.8" ;
+                                   skos:prefLabel "Manage Data Supplier"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageFinancesActivity
-<http://id.unece.org/models/gamso/ManageFinancesActivity> rdf:type owl:NamedIndividual ,
-                                                                   gamso:CorporateSupportActivity ;
-                                                          skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                          skos:definition """These activities cover the organisation's ongoing use of financial and accounting information to measure, operate and predict the efficiency and effectiveness of its activities, including procurement and contracts, in relation to the organisation's goals and objectives. Suppliers as referring to commercial provides of goods and services for the statistical organisation. These include:
+igamso:ManageFinancesActivity rdf:type owl:NamedIndividual ,
+                                       gamso:CorporateSupportActivity ;
+                              skos:broader igamso:CorporateSupportActivity ;
+                              skos:definition """These activities cover the organisation's ongoing use of financial and accounting information to measure, operate and predict the efficiency and effectiveness of its activities, including procurement and contracts, in relation to the organisation's goals and objectives. Suppliers as referring to commercial provides of goods and services for the statistical organisation. These include:
 • Maintain accounts (including assets and liabilities)
 • Manage procurement and contracts
 • Manage suppliers of equipment, office supplies and services"""@en ;
-                                                          skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                          skos:notation "3.2" ;
-                                                          skos:prefLabel "Manage Finances"@en .
+                              skos:inScheme igamso:GAMSO ;
+                              skos:notation "3.2" ;
+                              skos:prefLabel "Manage Finances"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageHumanResourcesActivity
-<http://id.unece.org/models/gamso/ManageHumanResourcesActivity> rdf:type owl:NamedIndividual ,
-                                                                         gamso:CorporateSupportActivity ;
-                                                                skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                                skos:definition """These activities cover employee performance, recruitment, skills development, talent management and succession planning work. These include:
+igamso:ManageHumanResourcesActivity rdf:type owl:NamedIndividual ,
+                                             gamso:CorporateSupportActivity ;
+                                    skos:broader igamso:CorporateSupportActivity ;
+                                    skos:definition """These activities cover employee performance, recruitment, skills development, talent management and succession planning work. These include:
 • Manage employee performance
 • Manage and develop skills
 • Manage talent
 • Manage recruitment
 • Ensure succession planning"""@en ;
-                                                                skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                skos:notation "3.3" ;
-                                                                skos:prefLabel "Manage Human Resources"@en .
+                                    skos:inScheme igamso:GAMSO ;
+                                    skos:notation "3.3" ;
+                                    skos:prefLabel "Manage Human Resources"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageITActivity
-<http://id.unece.org/models/gamso/ManageITActivity> rdf:type owl:NamedIndividual ,
-                                                             gamso:CorporateSupportActivity ;
-                                                    skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                    skos:definition """These activities cover coordination and management of information and technology resources and solutions. They include the management of the physical security of data. These include:
+igamso:ManageITActivity rdf:type owl:NamedIndividual ,
+                                 gamso:CorporateSupportActivity ;
+                        skos:broader igamso:CorporateSupportActivity ;
+                        skos:definition """These activities cover coordination and management of information and technology resources and solutions. They include the management of the physical security of data. These include:
 • Manage IT assets and services
 • Manage IT security
 • Manage technological change"""@en ;
-                                                    skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                    skos:notation "3.4" ;
-                                                    skos:prefLabel "Manage IT"@en .
+                        skos:inScheme igamso:GAMSO ;
+                        skos:notation "3.4" ;
+                        skos:prefLabel "Manage IT"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageInformationAndKnowledgeActivity
-<http://id.unece.org/models/gamso/ManageInformationAndKnowledgeActivity> rdf:type owl:NamedIndividual ,
-                                                                                  gamso:CorporateSupportActivity ;
-                                                                         skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                                         skos:definition """These activities cover the ownership or custody of records, documents, information and other intellectual assets held by the organisation and the governance of information collection, arrangement, storage, maintenance, retrieval, dissemination and destruction. They also include maintaining the policies, guidelines and standards regarding information management and governance. These include:
+igamso:ManageInformationAndKnowledgeActivity rdf:type owl:NamedIndividual ,
+                                                      gamso:CorporateSupportActivity ;
+                                             skos:broader igamso:CorporateSupportActivity ;
+                                             skos:definition """These activities cover the ownership or custody of records, documents, information and other intellectual assets held by the organisation and the governance of information collection, arrangement, storage, maintenance, retrieval, dissemination and destruction. They also include maintaining the policies, guidelines and standards regarding information management and governance. These include:
 • Manage documents and records, including destruction and archiving
 • Manage knowledge
 • Manage information standards and rights
 • Manage metadata and data"""@en ;
-                                                                         skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                         skos:notation "3.6" ;
-                                                                         skos:prefLabel "Manage Information and Knowledge"@en .
+                                             skos:inScheme igamso:GAMSO ;
+                                             skos:notation "3.6" ;
+                                             skos:prefLabel "Manage Information and Knowledge"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageQualityActivity
-<http://id.unece.org/models/gamso/ManageQualityActivity> rdf:type owl:NamedIndividual ,
-                                                                  gamso:CorporateSupportActivity ;
-                                                         skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                         skos:definition """These activities cover developing and administering a quality framework and cross-cutting work with tools to assure quality, i.e. compliance with the quality framework that should cover quality linked to the organisational framework, processes and products. Such tools comprise quality indicators (including balancing quality components), user surveys, self-assessments, quality reviews or audits, certification and labelling of statistics. Quality documentation here refers to the organisational level and covers quality declarations, policies and relevant guidelines such as guidelines on handling of errors and revisions. These include:
+igamso:ManageQualityActivity rdf:type owl:NamedIndividual ,
+                                      gamso:CorporateSupportActivity ;
+                             skos:broader igamso:CorporateSupportActivity ;
+                             skos:definition """These activities cover developing and administering a quality framework and cross-cutting work with tools to assure quality, i.e. compliance with the quality framework that should cover quality linked to the organisational framework, processes and products. Such tools comprise quality indicators (including balancing quality components), user surveys, self-assessments, quality reviews or audits, certification and labelling of statistics. Quality documentation here refers to the organisational level and covers quality declarations, policies and relevant guidelines such as guidelines on handling of errors and revisions. These include:
 • Manage quality framework
 • Manage quality assurance tools
 • Manage quality documentation"""@en ;
-                                                         skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                         skos:notation "3.10" ;
-                                                         skos:prefLabel "Manage Quality"@en .
+                             skos:inScheme igamso:GAMSO ;
+                             skos:notation "3.10" ;
+                             skos:prefLabel "Manage Quality"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageStatisticalMethodologyActivity
-<http://id.unece.org/models/gamso/ManageStatisticalMethodologyActivity> rdf:type owl:NamedIndividual ,
-                                                                                 gamso:CorporateSupportActivity ;
-                                                                        skos:broader <http://id.unece.org/models/gamso/CorporateSupportActivity> ;
-                                                                        skos:definition """These activities cover the need to maintain the confidentiality and disclosure of information collected, maintained, or disseminated about individual persons, businesses or other entities. These include:
+igamso:ManageStatisticalMethodologyActivity rdf:type owl:NamedIndividual ,
+                                                     gamso:CorporateSupportActivity ;
+                                            skos:broader igamso:CorporateSupportActivity ;
+                                            skos:definition """These activities cover the need to maintain the confidentiality and disclosure of information collected, maintained, or disseminated about individual persons, businesses or other entities. These include:
 • Manage cross-cutting statistical methodologies
 • Manage confidentiality
 • Manage disclosure control"""@en ;
-                                                                        skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                        skos:notation "3.5" ;
-                                                                        skos:prefLabel "Manage Statistical Methodology"@en .
+                                            skos:inScheme igamso:GAMSO ;
+                                            skos:notation "3.5" ;
+                                            skos:prefLabel "Manage Statistical Methodology"@en .
 
 
 ###  http://id.unece.org/models/gamso/ManageStrategicCollaborationAndCooperationActivity
-<http://id.unece.org/models/gamso/ManageStrategicCollaborationAndCooperationActivity> rdf:type owl:NamedIndividual ,
-                                                                                               gamso:StrategyAndLeadershipActivity ;
-                                                                                      skos:broader <http://id.unece.org/models/gamso/StrategyAndLeadershipActivity> ;
-                                                                                      skos:definition """These activities cover collaboration, cooperation and coordination with other statistical organisations and other external stakeholders. They can include coordination within a statistical system, which may be based on a geographical hierarchy of entities (local, regional, national, multi-national), or a split of responsibilities between organisations based upon activities. They include activities undertaken to identify new opportunities for data exchange or integration. They provide the statistical community with opportunities to exchange knowledge, to improve statistical infrastructure and practices and to influence statistical standards. 
+igamso:ManageStrategicCollaborationAndCooperationActivity rdf:type owl:NamedIndividual ,
+                                                                   gamso:StrategyAndLeadershipActivity ;
+                                                          skos:broader igamso:StrategyAndLeadershipActivity ;
+                                                          skos:definition """These activities cover collaboration, cooperation and coordination with other statistical organisations and other external stakeholders. They can include coordination within a statistical system, which may be based on a geographical hierarchy of entities (local, regional, national, multi-national), or a split of responsibilities between organisations based upon activities. They include activities undertaken to identify new opportunities for data exchange or integration. They provide the statistical community with opportunities to exchange knowledge, to improve statistical infrastructure and practices and to influence statistical standards. 
 
 These activities contribute to the building and enhancing of shared statistical capabilities managed by partners, leading to increased statistical understanding and improved application and use. They include organisation and coordination of other organisations which produce official statistics as part of a national system. These include:
 • Build and maintain strategic relations, nationally and internationally
@@ -2756,30 +2757,30 @@ These activities contribute to the building and enhancing of shared statistical 
 • Advance inter-agency and international collaborations
 • Secure support for statistical product and service and capability portfolio
 • Coordinate the national statistical system"""@en ;
-                                                                                      skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                                      skos:notation "1.3" ;
-                                                                                      skos:prefLabel "Manage Strategic Collaboration and Cooperation"@en .
+                                                          skos:inScheme igamso:GAMSO ;
+                                                          skos:notation "1.3" ;
+                                                          skos:prefLabel "Manage Strategic Collaboration and Cooperation"@en .
 
 
 ###  http://id.unece.org/models/gamso/MonitorCapabilityImprovementsActivity
-<http://id.unece.org/models/gamso/MonitorCapabilityImprovementsActivity> rdf:type owl:NamedIndividual ,
-                                                                                  gamso:CapabilityDevelopmentActivity ;
-                                                                         skos:broader <http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> ;
-                                                                         skos:definition """These activities aim at monitoring the organisation capabilities, ensuring the organisation reaps maximum benefits from investments. They involve maintaining capabilities, evaluating them or suggesting where improvements are required. Staff members undertaking these activities effectively become the custodians/reference persons for the capabilities, taking responsibility for their fitness for purpose. These include:
+igamso:MonitorCapabilityImprovementsActivity rdf:type owl:NamedIndividual ,
+                                                      gamso:CapabilityDevelopmentActivity ;
+                                             skos:broader igamso:CapabilityDevelopmentActivity ;
+                                             skos:definition """These activities aim at monitoring the organisation capabilities, ensuring the organisation reaps maximum benefits from investments. They involve maintaining capabilities, evaluating them or suggesting where improvements are required. Staff members undertaking these activities effectively become the custodians/reference persons for the capabilities, taking responsibility for their fitness for purpose. These include:
 
 • Maintain capability improvements 
 • Promote capability improvements
 • Evaluate capability improvements"""@en ;
-                                                                         skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                         skos:notation "2.3" ;
-                                                                         skos:prefLabel "Monitor Capabilities"@en .
+                                             skos:inScheme igamso:GAMSO ;
+                                             skos:notation "2.3" ;
+                                             skos:prefLabel "Monitor Capabilities"@en .
 
 
 ###  http://id.unece.org/models/gamso/PlanCapabilityImprovementsActivity
-<http://id.unece.org/models/gamso/PlanCapabilityImprovementsActivity> rdf:type owl:NamedIndividual ,
-                                                                               gamso:CapabilityDevelopmentActivity ;
-                                                                      skos:broader <http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> ;
-                                                                      skos:definition """These activities aim at planning the best way forward to develop a new capability or improve an organisation's capabilities. They require a thorough organisational view of change requirements, the prioritisation of options through an efficient, iterative approval process until a work programme for capability improvements is finalised. 
+igamso:PlanCapabilityImprovementsActivity rdf:type owl:NamedIndividual ,
+                                                   gamso:CapabilityDevelopmentActivity ;
+                                          skos:broader igamso:CapabilityDevelopmentActivity ;
+                                          skos:definition """These activities aim at planning the best way forward to develop a new capability or improve an organisation's capabilities. They require a thorough organisational view of change requirements, the prioritisation of options through an efficient, iterative approval process until a work programme for capability improvements is finalised. 
 
 These activities further coordinate the planning and resourcing of cross-cutting/reusable capability improvement projects (both large and small), to ensure key improvement work is integrated across the organisation, with interdependencies understood and the resources optimized across the work programme. 
 
@@ -2789,22 +2790,22 @@ The activities include:
 • Identify disruptions and capability improvements
 • Propose capability improvement projects
 • Manage capability improvement programmes"""@en ;
-                                                                      skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                      skos:notation "2.1" ;
-                                                                      skos:prefLabel "Plan Capability Improvements"@en .
+                                          skos:inScheme igamso:GAMSO ;
+                                          skos:notation "2.1" ;
+                                          skos:prefLabel "Plan Capability Improvements"@en .
 
 
 ###  http://id.unece.org/models/gamso/StatisticalSupportingActivity
-<http://id.unece.org/models/gamso/StatisticalSupportingActivity> rdf:type owl:NamedIndividual ,
-                                                                          gamso:StatisticalSupportingActivity ;
-                                                                 rdfs:label "Supporting Activity For Statistical Organisations"@en ;
-                                                                 skos:inScheme <http://id.unece.org/models/gamso/GAMSO> .
+igamso:StatisticalSupportingActivity rdf:type owl:NamedIndividual ,
+                                              gamso:StatisticalSupportingActivity ;
+                                     rdfs:label "Supporting Activity For Statistical Organisations"@en ;
+                                     skos:inScheme igamso:GAMSO .
 
 
 ###  http://id.unece.org/models/gamso/StrategyAndLeadershipActivity
-<http://id.unece.org/models/gamso/StrategyAndLeadershipActivity> rdf:type owl:NamedIndividual ,
-                                                                          gamso:StatisticalSupportingActivity ;
-                                                                 skos:definition """These activities ensure that statistical organisations understand the environment in which they operate and the emerging issues they are confronted with, so that it is clear where they can provide independent, evidence-based information, as well as statistical standards and infrastructure, for use by governments and the broader community. 
+igamso:StrategyAndLeadershipActivity rdf:type owl:NamedIndividual ,
+                                              gamso:StatisticalSupportingActivity ;
+                                     skos:definition """These activities ensure that statistical organisations understand the environment in which they operate and the emerging issues they are confronted with, so that it is clear where they can provide independent, evidence-based information, as well as statistical standards and infrastructure, for use by governments and the broader community. 
 
 Based on this, statistical organisations determine their high-level goals and directions, including the values which will guide them, so they set their statistical programmes accordingly. This also includes communicating the mission, values and expectations internally and externally, to lead and inspire staff and to increase government and community trust and confidence in the organisation and in official statistics in general. These include:
 
@@ -2813,26 +2814,26 @@ Based on this, statistical organisations determine their high-level goals and di
 • Determine organisational value proposition
 • Determine and communicate values and expectations
 • Create interest and awareness"""@en ;
-                                                                 skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                 skos:narrower <http://id.unece.org/models/gamso/DefineVisionActivity> ,
-                                                                               <http://id.unece.org/models/gamso/GovernAndLeadActivity> ,
-                                                                               <http://id.unece.org/models/gamso/ManageStrategicCollaborationAndCooperationActivity> ;
-                                                                 skos:notation "1" ;
-                                                                 skos:prefLabel "Strategy and Leadership" ;
-                                                                 skos:topConceptOf <http://id.unece.org/models/gamso/GAMSO> .
+                                     skos:inScheme igamso:GAMSO ;
+                                     skos:narrower igamso:DefineVisionActivity ,
+                                                   igamso:GovernAndLeadActivity ,
+                                                   igamso:ManageStrategicCollaborationAndCooperationActivity ;
+                                     skos:notation "1" ;
+                                     skos:prefLabel "Strategy and Leadership" ;
+                                     skos:topConceptOf igamso:GAMSO .
 
 
 ###  http://id.unece.org/models/gamso/TransferSupportOfCapabilityImprovementsActivity
-<http://id.unece.org/models/gamso/TransferSupportOfCapabilityImprovementsActivity> rdf:type owl:NamedIndividual ,
-                                                                                            gamso:CapabilityDevelopmentActivity ;
-                                                                                   skos:broader <http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> ;
-                                                                                   skos:definition """These activities provide the technical hands-on assistance required across the organisation to ensure that the capability improvements are actually used in support of the statistical work programme. These activities also guide the successful operation of individual reusable business processes and transfer of shared infrastructures. When a capability improvement is fully integrated in Production, its support is transferred to one or more activities of Corporate Support. These include:
+igamso:TransferSupportOfCapabilityImprovementsActivity rdf:type owl:NamedIndividual ,
+                                                                gamso:CapabilityDevelopmentActivity ;
+                                                       skos:broader igamso:CapabilityDevelopmentActivity ;
+                                                       skos:definition """These activities provide the technical hands-on assistance required across the organisation to ensure that the capability improvements are actually used in support of the statistical work programme. These activities also guide the successful operation of individual reusable business processes and transfer of shared infrastructures. When a capability improvement is fully integrated in Production, its support is transferred to one or more activities of Corporate Support. These include:
 • Transfer design
 • Transfer operations
 • Transfer user support"""@en ;
-                                                                                   skos:inScheme <http://id.unece.org/models/gamso/GAMSO> ;
-                                                                                   skos:notation "2.4" ;
-                                                                                   skos:prefLabel "Support Capability Implementation"@en .
+                                                       skos:inScheme igamso:GAMSO ;
+                                                       skos:notation "2.4" ;
+                                                       skos:prefLabel "Support Capability Implementation"@en .
 
 
 ###  http://id.unece.org/models/gsbpm/GSBPM
@@ -4608,9 +4609,9 @@ kshrts:CreateFrameAndSampleProcess rdf:type owl:NamedIndividual ,
                                    :classifiedAs-PS <http://id.unece.org/models/gsbpm/4.1> ;
                                    :createsPS-PO kshrts:CreateFrameAndSampleProcessCoreOutput ;
                                    :hasPS-PI kshrts:CreateFrameAndSampleProcessCoreInput ;
+                                   :usePS-PKG icspa:SampleSelectionService ;
                                    :hasEndTime-PS "2018-07-03T20:00:00"^^xsd:dateTime ;
                                    :hasStartTime-PS "2018-07-01T08:00:00"^^xsd:dateTime ;
-                                   :usePS-PKG icspa:SampleSelectionService ;
                                    rdfs:label "RTS - Create Frame And Sample - Process"@en .
 
 
@@ -5362,6 +5363,7 @@ Quality measures of the Process Step such as:
 ###  https://www.ksh.hu/survey/retail-trade-statistics#EstablishOutputObjectivesProcessSupportInput
 kshrts:EstablishOutputObjectivesProcessSupportInput rdf:type owl:NamedIndividual ,
                                                              :ProcessSupportInput ;
+                                                   :classifiedAs-GAMSO igamso:ManageInformationAndKnowledgeActivity ;
                                                     gsim-sum:hasValue-IA """Legal frameworks and regulations that influence the content and quality of the outputs
 - Regulation (EC) No 223/2009 of the European Parliament of the Council on European statistics
 - Act CLV of 2016 on Official Statistics regulating development, production and dissemination of official statistics at national level
@@ -5466,6 +5468,7 @@ Quality measures of the Process Step such as:
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyConceptProcessSupportInput
 kshrts:IdentifyConceptProcessSupportInput rdf:type owl:NamedIndividual ,
                                                    :ProcessSupportInput ;
+                                          :classifiedAs-GAMSO igamso:ManageInformationAndKnowledgeActivity ;
                                           gsim-sum:hasValue-IA "Dissemination policies" ;
                                           rdfs:label "RTS - Identify Concepts - Process Input (Process Support Input)"@en .
 
@@ -5808,6 +5811,7 @@ kshrts:RetailTradeStatisticsBusinessProcess rdf:type owl:NamedIndividual ,
                                                      :BusinessProcess ;
                                             :hasBP-PS kshrts:CheckDataAvailabilityProcess ,
                                                       kshrts:ConsultAndConfirmNeeds ,
+                                                      kshrts:CreateFrameAndSampleProcess ,
                                                       kshrts:DesignCollectionProcess ,
                                                       kshrts:DesignFrameAndSampleProcess ,
                                                       kshrts:DesignOutputProcess ,
@@ -5815,8 +5819,7 @@ kshrts:RetailTradeStatisticsBusinessProcess rdf:type owl:NamedIndividual ,
                                                       kshrts:EstablishOutputObjectivesProcess ,
                                                       kshrts:IdentifyConceptProcess ,
                                                       kshrts:IdentifyNeedsProcess ,
-                                                      kshrts:PrepareAndSubmitBusinessCaseProcess,
-                                                      kshrts:CreateFrameAndSampleProcess ;
+                                                      kshrts:PrepareAndSubmitBusinessCaseProcess ;
                                             gsim-sum:hasName-IA "Retail Trade Statistics Business Process" ;
                                             rdfs:label "Retail Trade Statistics (RTS) Business Process"@en .
 
