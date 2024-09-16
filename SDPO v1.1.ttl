@@ -18,6 +18,7 @@
 @prefix xkos: <http://rdf-vocabulary.ddialliance.org/xkos#> .
 @prefix gamso: <http://rdf.unece.org/models/gamso#> .
 @prefix gsbpm: <http://rdf.unece.org/models/gsbpm#> .
+@prefix icspa: <http://id.unece.org/models/cspa/services/> .
 @prefix id-ps: <https://www.bps.go.id/survey/population-census#> .
 @prefix igsbpm: <http://id.unece.org/models/gsbpm/> .
 @prefix kshrts: <https://www.ksh.hu/survey/retail-trade-statistics#> .
@@ -196,23 +197,19 @@ cspa:genericOrganization rdf:type owl:ObjectProperty ;
 ###  http://rdf.unece.org/models/cspa#gsbpmSubProcess
 cspa:gsbpmSubProcess rdf:type owl:ObjectProperty ;
                      rdfs:domain cspa:BusinessFunction ;
-                     rdfs:range gsbpm:SubProcess ;
-                     rdfs:comment "See GSBPM documentation" ;
-                     rdfs:label "GSBPM sub-process" .
+                     rdfs:range gsbpm:SubProcess .
 
 
 ###  http://rdf.unece.org/models/cspa#gsimInput
 cspa:gsimInput rdf:type owl:ObjectProperty ;
                rdfs:domain cspa:DefinitionInput ;
-               rdfs:range gsim-sum:IdentifiableArtefact ;
-               rdfs:label "GSIM Input" .
+               rdfs:range gsim-sum:IdentifiableArtefact .
 
 
 ###  http://rdf.unece.org/models/cspa#gsimOutput
 cspa:gsimOutput rdf:type owl:ObjectProperty ;
                 rdfs:domain cspa:DefinitionOutput ;
-                rdfs:range gsim-sum:IdentifiableArtefact ;
-                rdfs:label "GSIM Output" .
+                rdfs:range gsim-sum:IdentifiableArtefact .
 
 
 ###  http://rdf.unece.org/models/cspa#hasDependencyIdentifier
@@ -303,9 +300,7 @@ cspa:hasPackageSpecification rdf:type owl:ObjectProperty ;
 cspa:homepage rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
               rdfs:domain cspa:Documentation ;
-              rdfs:range cspa:Document ;
-              rdfs:comment "Homepage of the service; a web page containing information about the service." ;
-              rdfs:label "Homepage" .
+              rdfs:range cspa:Document .
 
 
 ###  http://rdf.unece.org/models/cspa#implementationDependsOn
@@ -340,9 +335,7 @@ cspa:implementationIsInvokedBy rdf:type owl:ObjectProperty ;
 ###  http://rdf.unece.org/models/cspa#installationGuide
 cspa:installationGuide rdf:type owl:ObjectProperty ;
                        rdfs:domain cspa:Documentation ;
-                       rdfs:range cspa:Document ;
-                       rdfs:comment "Document explaining how to install the service." ;
-                       rdfs:label "Installation guide" .
+                       rdfs:range cspa:Document .
 
 
 ###  http://rdf.unece.org/models/cspa#investorOrganization
@@ -418,16 +411,22 @@ gsim-sum:measuresV-UT rdf:type owl:ObjectProperty ;
                       rdfs:range gsim-sum:UnitType .
 
 
-###  https://w3id.org/sdp/core#classifiedAs
-:classifiedAs rdf:type owl:ObjectProperty ;
-              rdfs:domain :ProcessDesign ;
-              rdfs:range gsbpm:SubProcess .
-
-
 ###  https://w3id.org/sdp/core#classifiedAs-GAMSO
 :classifiedAs-GAMSO rdf:type owl:ObjectProperty ;
                     rdfs:domain :ProcessSupportInput ;
                     rdfs:range gamso:StatisticalSupportingActivity .
+
+
+###  https://w3id.org/sdp/core#classifiedAs-PD
+:classifiedAs-PD rdf:type owl:ObjectProperty ;
+                 rdfs:domain :ProcessDesign ;
+                 rdfs:range gsbpm:SubProcess .
+
+
+###  https://w3id.org/sdp/core#classifiedAs-PS
+:classifiedAs-PS rdf:type owl:ObjectProperty ;
+                 rdfs:domain :ProcessStep ;
+                 rdfs:range gsbpm:SubProcess .
 
 
 ###  https://w3id.org/sdp/core#correspondsToPI-PIS
@@ -536,6 +535,12 @@ gsim-sum:measuresV-UT rdf:type owl:ObjectProperty ;
 :specifiesPD-PS rdf:type owl:ObjectProperty ;
                 rdfs:domain :ProcessDesign ;
                 rdfs:range :ProcessStep .
+
+
+###  https://w3id.org/sdp/core#usePS-PKG
+:usePS-PKG rdf:type owl:ObjectProperty ;
+           rdfs:domain :ProcessStep ;
+           rdfs:range cspa:Package .
 
 
 ###  https://w3id.org/sdp/core#usesSP-SPD
@@ -1243,6 +1248,10 @@ cspa:SpecificationOutput rdf:type owl:Class ;
 
 ###  http://rdf.unece.org/models/cspa#StatisticalProductionArchitecture
 cspa:StatisticalProductionArchitecture rdf:type owl:Class .
+
+
+###  http://rdf.unece.org/models/cspa#package
+cspa:package rdf:type owl:Class .
 
 
 ###  http://rdf.unece.org/models/gamso#CapabilityDevelopmentActivity
@@ -2253,94 +2262,253 @@ Here are 3 examples - 1. Sex of person 2. Number of employees 3. Value of endowm
 
 
 ###  https://w3id.org/sdp/core#BusinessProcess
-:BusinessProcess rdf:type owl:Class .
+:BusinessProcess rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Activity .
 
 
 ###  https://w3id.org/sdp/core#CoreInput
 :CoreInput rdf:type owl:Class ;
-           rdfs:subClassOf :ProcessInput .
+           rdfs:subClassOf gsim:CoreInput ,
+                           :ProcessInput .
 
 
 ###  https://w3id.org/sdp/core#CoreOutput
 :CoreOutput rdf:type owl:Class ;
-            rdfs:subClassOf :ProcessOutput .
+            rdfs:subClassOf gsim:CoreOutput ,
+                            :ProcessOutput .
 
 
 ###  https://w3id.org/sdp/core#IdentifiableArtefact
-:IdentifiableArtefact rdf:type owl:Class .
+:IdentifiableArtefact rdf:type owl:Class ;
+                      rdfs:subClassOf prov:Entity ,
+                                      gsim-sum:IdentifiableArtefact .
 
 
 ###  https://w3id.org/sdp/core#ParameterInput
 :ParameterInput rdf:type owl:Class ;
-                rdfs:subClassOf :ProcessInput .
+                rdfs:subClassOf gsim:ParameterInput ,
+                                :ProcessInput .
 
 
 ###  https://w3id.org/sdp/core#ProcessControlDesign
-:ProcessControlDesign rdf:type owl:Class .
+:ProcessControlDesign rdf:type owl:Class ;
+                      rdfs:subClassOf prov:Entity ,
+                                      gsim-sum:ProcessControlDesign .
 
 
 ###  https://w3id.org/sdp/core#ProcessDesign
-:ProcessDesign rdf:type owl:Class .
+:ProcessDesign rdf:type owl:Class ;
+               rdfs:subClassOf prov:Entity ,
+                               gsim-sum:ProcessDesign .
 
 
 ###  https://w3id.org/sdp/core#ProcessExecutionLog
 :ProcessExecutionLog rdf:type owl:Class ;
-                     rdfs:subClassOf :ProcessOutput .
+                     rdfs:subClassOf gsim:ProcessExecutionLog ,
+                                     :ProcessOutput .
 
 
 ###  https://w3id.org/sdp/core#ProcessInput
-:ProcessInput rdf:type owl:Class .
+:ProcessInput rdf:type owl:Class ;
+              rdfs:subClassOf prov:Entity ,
+                              gsim-sum:ProcessInput .
 
 
 ###  https://w3id.org/sdp/core#ProcessInputSpecification
-:ProcessInputSpecification rdf:type owl:Class .
+:ProcessInputSpecification rdf:type owl:Class ;
+                           rdfs:subClassOf prov:Entity ,
+                                           gsim-sum:ProcessInputSpecification .
 
 
 ###  https://w3id.org/sdp/core#ProcessMethod
-:ProcessMethod rdf:type owl:Class .
+:ProcessMethod rdf:type owl:Class ;
+               rdfs:subClassOf prov:Entity ,
+                               gsim-sum:ProcessMethod .
 
 
 ###  https://w3id.org/sdp/core#ProcessMetric
 :ProcessMetric rdf:type owl:Class ;
-               rdfs:subClassOf :ProcessOutput .
+               rdfs:subClassOf gsim:ProcessMetric ,
+                               :ProcessOutput .
 
 
 ###  https://w3id.org/sdp/core#ProcessOutput
-:ProcessOutput rdf:type owl:Class .
+:ProcessOutput rdf:type owl:Class ;
+               rdfs:subClassOf prov:Entity .
 
 
 ###  https://w3id.org/sdp/core#ProcessOutputSpecification
-:ProcessOutputSpecification rdf:type owl:Class .
+:ProcessOutputSpecification rdf:type owl:Class ;
+                            rdfs:subClassOf prov:Entity ,
+                                            gsim-sum:ProcessOutputSpecification .
 
 
 ###  https://w3id.org/sdp/core#ProcessStep
-:ProcessStep rdf:type owl:Class .
+:ProcessStep rdf:type owl:Class ;
+             rdfs:subClassOf gsbpm:SubProcess ,
+                             prov:Activity .
 
 
 ###  https://w3id.org/sdp/core#ProcessSupportInput
 :ProcessSupportInput rdf:type owl:Class ;
-                     rdfs:subClassOf :ProcessInput .
+                     rdfs:subClassOf gsim:ProcessSupportInput ,
+                                     :ProcessInput .
 
 
 ###  https://w3id.org/sdp/core#Rule
-:Rule rdf:type owl:Class .
+:Rule rdf:type owl:Class ;
+      rdfs:subClassOf prov:Entity ,
+                      gsim-sum:Rule .
 
 
 ###  https://w3id.org/sdp/core#StatisticalProgram
-:StatisticalProgram rdf:type owl:Class .
+:StatisticalProgram rdf:type owl:Class ;
+                    rdfs:subClassOf gsbpm:StatisticalProductionActivity ,
+                                    prov:Activity ,
+                                    gsim-sum:StatisticalProgram .
 
 
 ###  https://w3id.org/sdp/core#StatisticalProgramCycle
-:StatisticalProgramCycle rdf:type owl:Class .
+:StatisticalProgramCycle rdf:type owl:Class ;
+                         rdfs:subClassOf prov:Activity .
 
 
 ###  https://w3id.org/sdp/core#StatisticalProgramDesign
-:StatisticalProgramDesign rdf:type owl:Class .
+:StatisticalProgramDesign rdf:type owl:Class ;
+                          rdfs:subClassOf prov:Entity ,
+                                          gsim-sum:StatisticalProgramDesign .
 
 
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://id.unece.org/models/cspa/services/SampleSelectionService
+icspa:SampleSelectionService rdf:type owl:NamedIndividual ,
+                                      cspa:package ;
+                             cspa:hasPackageDefinition icspa:SampleSelectionServiceServiceDefinition ;
+                             cspa:hasPackageImplementation icspa:SampleSelectionServiceServiceImplementation ;
+                             cspa:hasPackageSpecification icspa:SampleSelectionServiceServiceSpecification ;
+                             cspa:label "Sample Selection service" .
+
+
+###  http://id.unece.org/models/cspa/services/SampleSelectionServiceServiceDefinition
+icspa:SampleSelectionServiceServiceDefinition rdf:type owl:NamedIndividual ,
+                                                       cspa:ServiceDefinition ;
+                                              cspa:aimsAt [ rdf:type cspa:BusinessFunction ;
+                                                            cspa:description """An important design goal of the service is to facilitate spreading the administrative burden across individual units of the population. For this, the service can be set up to recognize groups of Statistical Programs. The burden is then spread within each group. Groups may (and often will) have the same or overlapping populations, but there is no coordination across groups. 
+              Each group also has a Base Stratification, that is used for all samples drawn under the group. For the dimensions of the Stratification, Correspondence Tables are defined to map the classifications of the population units to the strata. Each Program in a group may have a panel.
+              In the Design Phase, the groups of Statistical Programs are defined with their associated Base Stratification and Corrrespondence Tables. In this phase, for each group, rules are specified to be used in the Collect Phase for the initialisation of new units or the handling of units changing strata in the Base Stratification. 
+              In the Collect Phase, for each Program Cycle, a sample is drawn using this service. Each time, a fresh Population Frame is provided with target quota for each cell in the Base Stratification. In addition, the input may specify Sub-stratifications, i.e. a further refinement of the Base Stratification with associated mappings and quota.
+              """ ;
+                                                            cspa:methods "The first implementation of the service will support two methods of sampling: Panel and non-panel. Both methods apply stratified a-select sampling with target quota per stratum. In this implementation, panels may not (yet) be combined. Programs using panels therefore each have their own (single-program) group." ;
+                                                            cspa:outcomes "The output of the service is a sample drawn from the population frame according to the design and the parameters specified in the input. In addition, the service keeps state, i.e. information about the group population, about the administrative burden per population unit and about panels within the group, to be used in subsequent executions of the service. " ;
+                                                            cspa:restrictions """The user must ensure that 
+            •	the Population Frame provided in the input matches the design in terms of classifications
+            •	every Unit in the Population Frame can be assigned to a cell in the Base Stratification of the design
+            """ ;
+                                                            cspa:gsbpmSubProcess "4.1 Create Frame and Select Sample " ;
+                                                            cspa:gsimInput """1.	Population Frame (UnitDataSet plus its UnitDataStructure)
+                2.	Referential Input:
+                1.	Identification of Statistical Program
+                2.	Complete description of Survey Group (Id, Complete Base Stratification with levelled classifications)
+                3.	Method to be used (panel, non-panel)
+                4.	Rotation Fraction for panel
+                5.	Definition of sub-strata with mapping
+                6.	Set of quota 
+                """ ;
+                                                            cspa:gsimOutput "A sample (Unit DataSet plus its UnitDataStructure), where each Unit selected from the Population Frame has a Measure Component (Variable) that identifies the (Base or Sub) Stratum the Unit belongs to plus an Attribute Component (Variable) that indicates the Inclusion Weight."
+                                                          ] .
+
+
+###  http://id.unece.org/models/cspa/services/SampleSelectionServiceServiceImplementation
+icspa:SampleSelectionServiceServiceImplementation rdf:type owl:NamedIndividual ,
+                                                           cspa:ServiceImplementationDescription ;
+                                                  cspa:comesFrom _:genid32 ;
+                                                  cspa:implementationDependsOn [ rdf:type cspa:ImplementationInterface ;
+                                                                                 cspa:description "This implementation is a REST API which can be accessed by HTTP calls." ;
+                                                                                 cspa:label "REST API"
+                                                                               ] ,
+                                                                               [ rdf:type cspa:ImplementationDependency ;
+                                                                                 cspa:description "The service is a Java 7 application compliant to the applicable standards, it could be packaged as a WAR and deployed in a JEE or more lightweight container (like Tomcat or Jetty). As a consequence it could be run on any platform that could execute a JRE compatible with Java 7." ;
+                                                                                 cspa:label "Java 7 application"
+                                                                               ] ,
+                                                                               [ rdf:type cspa:ImplementationDependency ;
+                                                                                 cspa:description "It is a stateless service and does not require a database." ;
+                                                                                 cspa:label "Stateless service"
+                                                                               ] ,
+                                                                               [ rdf:type cspa:ImplementationDependency ;
+                                                                                 cspa:description "The main dependency (other than technical ones like serialisation libraries or REST implementation) is the JDemetra+ library which provides the seasonal adjustment algorithms (Tramo-Seats and X13)." ;
+                                                                                 cspa:label "JDemetra+"
+                                                                               ] ;
+                                                  cspa:isDocumentedBy [ rdf:type cspa:Documentation ;
+                                                                        cspa:additionalInformation "A Swagger specification could be found here : http://default-environment-iefnmepgh8.elasticbeanstalk.com/static/sas-swagger.json" ,
+                                                                                                   "There are examples of requests in https://github.com/FranckCo/CSPA-SA/tree/master/src/test/resources, especially tsrequest.xml and x13request.xml." ,
+                                                                                                   "We also set up a little graphical test client there: http://cspa-sas-client-env.elasticbeanstalk.com/" ;
+                                                                        cspa:homepage "http://default-environment-iefnmepgh8.elasticbeanstalk.com/static/default.htm" ;
+                                                                        cspa:installationGuide "The service, once packaged with Maven, is a WAR that could be deployed on compatible container (see above)."
+                                                                      ] ;
+                                                  cspa:version "1" .
+
+_:genid32 rdf:type cspa:Provenance ;
+           cspa:builderOrganization [ rdf:type cspa:Organization ;
+                                      cspa:organizationName "INSEE"
+                                    ] .
+
+
+###  http://id.unece.org/models/cspa/services/SampleSelectionServiceServiceSpecification
+icspa:SampleSelectionServiceServiceSpecification rdf:type owl:NamedIndividual ,
+                                                          cspa:ServiceSpecification ;
+                                                 cspa:specificationIsInvokedBy [ rdf:type cspa:SpecificationInterface ;
+                                                                                 cspa:description """Statistical Service Specification: Sample Selection
+ 
+Protocol for Invoking the Service 
+This service is invoked by calling a function called \"Sample Selection\". 
+The protocol used to invoke this function should be in compliance with the guidance provided for developing Statistical Service by CSPA. The service will run for several minutes, so most likely an asynchronous calling mechanism will be required.
+In addition to the input parameters specified below, the caller will include a Request-Identifier in the input message, the value of which the service must return in the output as a Correlation-Identifier.
+Further requirements are:
+•	The service must be able to accept and queue requests even when processing previous requests
+•	The service must process requests in a timely manner, but not necessarily in order of arrival
+•	The service must have reasonable performance and throughput and should be scalable. This may be solved in the implementation (deployment infrastructure) rather than in the application.
+•	The service should be able to accept SurveyGroup data, Classifications related to the Base and SubStratification and the PopulationData \"by value\" as well as \"by reference\". 
+Parameters:
+•	Testrun (boolean): an indicator specifying whether the service should execute a normal production run or a testrun in which normal output is produced, but no updates are made to the internal state (no accumulation of burden on population units, no changes to panels)
+•	SurveyGroup: the complete description of the Survey Group this survey belongs to, consisting of:
+o	Code: Identifier for the survey group
+o	InitializationMethod: Id of method to be used when a new Unit is found or a Unit changes stratum (methods predefined in service)
+o	BaseStratificationDimensions: 
+
+	For each dimension: Identifier Code and data type
+	For each Code value in the dimension, the complete mapping of lower level code values (From= , To= )
+•	SurveyBurden (float): the burden this survey will cause for the respondents (population units selected); default that can be overridden at the level of the strata
+•	IsPanel (boolean): indicator specifying whether this survey uses a panel
+•	RotatePanel (boolean): in case of a Panel, indicates whether the panel should be rotated
+•	RotatePanelFraction (float): fraction of the panel that must be refreshed; default that can be overridden at the level of the strata
+•	SampleMethod (string): Id of method to be used for selecting the sample (future use, methods predefined in service)
+•	UnitIdMappingName (string): the name of the variable in the input data filling the role of Unit Id
+•	BaseStratVars (collection): the set of variables that map to the Base Stratification dimensions. Each variable has a refCode refering to the dimension in the Base Strat and a MappingName (string) containing the name of the variable in the input data that maps to this dimension
+•	SubStratVars (collection): the set of variables for sub-stratification. Each variable has a MappingName (string) giving the name of the variable in the input data, a Code and a DataType. With each variable, there also is a list of RangeGroups specifying the mapping of the values in the input data to the aggregation level in this sub-strat dimension
+•	HelperVars (collection): a set of variables, each with a Code, a DataType and a MappingName (string) refering to the variable in the input data (future use, for new methods)
+•	CustomFractions (collection): a set of Fractions, where each Fraction specifies a set of Units Id's in the input data with a Fraction (probability of selecting these Units in the sample)
+•	Strata (collection): for each of the Base Strata and Sub-Strata, the set of Code values that identify the (sub)stratum, together with Fraction, NumUnits, MinNumUnits, RotationFraction and SurveyBurden
+•	PopulationDataDataStructure: the data structure of the PopulationData, a Unit Dataset with a single record type
+•	PopulationData: the Population Frame input data
+ 
+Input Messages 
+In GSIM terms, the inputs to this service are …… (ref Service Definition)
+Describe specific inputs in terms to GSIM implementation
+ Output Message 
+The outputs of the service are ……  (ref Service Definition)
+Describe specific outputs in terms to GSIM implementation 
+Applicable Methodologies
+Describe the statistical methods that may be implemented in this Statistical Service
+(ref Service Definition)
+The basic methodologies used in this service are described in the attached document from 1993 and have been used by Statistics Netherlands since then. In the meantime, the following improvements have been made, that will also be included in the service.
+•	Improved assignment of ED-values and panel-indicator for new units (births) and units changing stratum
+•	Possibility to deviate from the Base Stratification by means of sub-stratification and the corresponding way of adapting ED-values.
+"""
+                                                                               ] .
+
 
 ###  http://id.unece.org/models/gamso/CapabilityDevelopmentActivity
 <http://id.unece.org/models/gamso/CapabilityDevelopmentActivity> rdf:type owl:NamedIndividual ,
@@ -3439,6 +3607,7 @@ id-ps:PopulationCensusProgramCycle2020LongForm rdf:type owl:NamedIndividual ,
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignCollectionProcess
 id-ps:SP2020DesignCollectionProcess rdf:type owl:NamedIndividual ,
                                              :ProcessStep ;
+                                    :classifiedAs-PS <http://id.unece.org/models/gsbpm/3.2> ;
                                     :createsPS-PO id-ps:SP2020DesignCollectionProcessCoreOutput ,
                                                   id-ps:SP2020DesignCollectionProcessExecutionLog ;
                                     :hasPS-PI id-ps:SP2020DesignCollectionProcessCoreInput ;
@@ -3476,7 +3645,7 @@ id-ps:SP2020DesignCollectionProcessCoreOutput rdf:type owl:NamedIndividual ,
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignCollectionProcessDesign
 id-ps:SP2020DesignCollectionProcessDesign rdf:type owl:NamedIndividual ,
                                                    :ProcessDesign ;
-                                          :classifiedAs <http://id.unece.org/models/gsbpm/3.2> ;
+                                          :classifiedAs-PD <http://id.unece.org/models/gsbpm/3.2> ;
                                           :hasPD-PCD id-ps:SP2020DesignCollectionProcessControlDesign ;
                                           :hasPD-PIS id-ps:SP2020DesignCollectionProcessInputSpecification ;
                                           :hasPD-POS id-ps:SP2020DesignCollectionProcessOutputSpecification ;
@@ -3650,6 +3819,7 @@ Concept: Population by Generation:
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignOutputProcess
 id-ps:SP2020DesignOutputProcess rdf:type owl:NamedIndividual ,
                                          :ProcessStep ;
+                                :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.1> ;
                                 :createsPS-PO id-ps:SP2020DesignOutputCoreOutput ,
                                               id-ps:SP2020DesignOutputProcessExecutionLog ;
                                 :hasPS-PI id-ps:SP2020DesignOutputCoreInput ;
@@ -3670,7 +3840,7 @@ id-ps:SP2020DesignOutputProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignOutputProcessDesign
 id-ps:SP2020DesignOutputProcessDesign rdf:type owl:NamedIndividual ,
                                                :ProcessDesign ;
-                                      :classifiedAs <http://id.unece.org/models/gsbpm/2.1> ;
+                                      :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.1> ;
                                       :hasPD-PCD id-ps:SP2020DesignOutputProcessControlDesign ;
                                       :hasPD-PIS id-ps:SP2020DesignOutputProcessInputSpecification ;
                                       :hasPD-POS id-ps:SP2020DesignOutputProcessOutputSpecification ;
@@ -3731,6 +3901,7 @@ Individuals""" ;
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignProcessingAndAnalysisProcess
 id-ps:SP2020DesignProcessingAndAnalysisProcess rdf:type owl:NamedIndividual ,
                                                         :ProcessStep ;
+                                               :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.5> ;
                                                :createsPS-PO id-ps:SP2020DesignProcessingAndAnalysisProcessCoreOutput ,
                                                              id-ps:SP2020DesignProcessingAndAnalysisProcessExecutionLog ;
                                                :hasPS-PI id-ps:SP2020DesignProcessingAndAnalysisProcessCoreInput ;
@@ -3769,7 +3940,7 @@ id-ps:SP2020DesignProcessingAndAnalysisProcessCoreOutput rdf:type owl:NamedIndiv
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignProcessingAndAnalysisProcessDesign
 id-ps:SP2020DesignProcessingAndAnalysisProcessDesign rdf:type owl:NamedIndividual ,
                                                               :ProcessDesign ;
-                                                     :classifiedAs <http://id.unece.org/models/gsbpm/2.5> ;
+                                                     :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.5> ;
                                                      :hasPD-PCD id-ps:SP2020DesignProcessingAndAnalysisProcessControlDesign ;
                                                      :hasPD-PIS id-ps:SP2020DesignProcessingAndAnalysisProcessInputSpecification ;
                                                      :hasPD-POS id-ps:SP2020DesignProcessingAndAnalysisProcessOutputSpecification ;
@@ -3870,6 +4041,7 @@ id-ps:SP2020DesignProcessingAndAnalysisProcessOutputSpecification rdf:type owl:N
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignVariableDescriptionsProcess
 id-ps:SP2020DesignVariableDescriptionsProcess rdf:type owl:NamedIndividual ,
                                                        :ProcessStep ;
+                                              :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.2> ;
                                               :createsPS-PO id-ps:SP2020DesignVariableDescriptionsProcessCoreOutput ,
                                                             id-ps:SP2020DesignVariableDescriptionsProcessExecutionLog ;
                                               :hasPS-PI id-ps:SP2020DesignVariableDescriptionsProcessCoreInput ;
@@ -3961,7 +4133,7 @@ id-ps:SP2020DesignVariableDescriptionsProcessCoreOutput rdf:type owl:NamedIndivi
 ###  https://www.bps.go.id/survey/population-census#SP2020DesignVariableDescriptionsProcessDesign
 id-ps:SP2020DesignVariableDescriptionsProcessDesign rdf:type owl:NamedIndividual ,
                                                              :ProcessDesign ;
-                                                    :classifiedAs <http://id.unece.org/models/gsbpm/2.2> ;
+                                                    :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.2> ;
                                                     :hasPD-PCD id-ps:SP2020DesignVariableDescriptionsProcessControlDesign ;
                                                     :hasPD-PIS id-ps:SP2020DesignVariableDescriptionsProcessInputSpecification ;
                                                     :hasPD-POS id-ps:SP2020DesignVariableDescriptionsProcessOutputSpecification ;
@@ -4091,9 +4263,109 @@ id-ps:SP2020DesignVariableDescriptionsProcessVariableSex rdf:type owl:NamedIndiv
                                                          rdfs:label "SP2020 - Design Variable Descriptions - Variable - Sex"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityAssessment
+kshrts:CheckDataAvailabilityAssessment rdf:type owl:NamedIndividual ,
+                                                gsim-sum:Assessment ;
+                                       gsim-sum:hasValue-IA """Assessment Summary:
+1. Internal Data Sources Assessment:
+
+1.1. Retail Business Register 
+- Availability: Available and regularly updated.
+- Quality: High coverage of retail businesses, including small and medium enterprises (SMEs).
+- Completeness: Near-complete coverage of the active retail sector. However, there is a small lag in updating business status (active/inactive), leading to potential inclusion of recently closed businesses.
+- Suitability: Well-suited for sampling frame development and trend analysis.
+- Recommendation: Proceed with this source as the primary sampling frame, with updates to inactive businesses done periodically to enhance data quality.
+
+1.2. Annual Retail Trade Survey
+- Availability: Available (last conducted in 2023).
+- Quality: Good historical data for retail sales and employment but subject to some non-response from smaller businesses.
+- Completeness: Coverage is strong for larger retail chains but less so for micro-enterprises. Data from specific retail subsectors (e.g., online retail) is sparse.
+- Suitability: Useful for trend analysis and historical comparison, but additional supplementation may be required for niche retail sectors.
+- Recommendation: Use as a secondary source to verify trends but supplement with external data for better coverage of online and SME sectors.
+
+1.3. Consumer Expenditure Survey
+- Availability: Available.
+- Quality: High-quality, self-reported household expenditure data.
+- Completeness: Comprehensive data on retail-related purchases but limited granularity on specific retail outlets.
+- Suitability: Can be used to cross-check retail sales figures by comparing household expenditure on retail goods.
+- Recommendation: Use this data to validate reported retail sales figures but not as a primary source.
+
+2. External Data Sources Assessment:
+
+2.1. Tax Authority Records
+- Availability: Available; provision agreement in place with the National Tax Authority.
+- Quality: High, as it is based on legally filed tax data. Sales turnover is accurately captured.
+- Completeness: Comprehensive for larger and medium-sized businesses. Some under-reporting may occur for small, informal retail enterprises.
+- Suitability: Highly suitable for validating sales turnover data, particularly for medium and large enterprises.
+- Recommendation: Use this source to cross-check and validate sales turnover data. Additional adjustments might be needed for missing or underreported data from smaller retailers.
+
+2.2. Point-of-Sale (POS) Data from Retail Chains
+- Availability**: Available; provision agreement in place with major retail chains.
+- Quality: High-quality transactional data covering daily sales volume and turnover. Provides granular, near real-time data on consumer purchases.
+- Completeness: Covers most large and mid-sized retail chains but excludes independent retailers and SMEs.
+- Suitability: Excellent for real-time tracking of sales in fast-moving consumer goods (FMCG) sectors and large retail chains. However, it lacks coverage for the small and micro retail sector.
+- Recommendation: Use as a primary source for tracking retail activity in major retail chains, but supplement with survey data for SMEs and niche retailers.
+
+Overall Assessment Conclusion:
+
+The assessment of data availability for the Retail Trade Statistics shows that the data sources currently available provide comprehensive coverage for the retail trade sector, with certain limitations. The NSO has sufficient data to proceed with the statistical production process, but adjustments and integrations of various data sources are recommended to fill gaps and ensure complete coverage.
+
+- Strengths:
+  - Internal Data: The Eetail Business Register provides a reliable sampling frame, and the Annual Retail Trade Survey offers solid historical data.
+  - External Data: Tax Authority Records and POS data from large retail chains are excellent for validating turnover figures and ensuring real-time sales tracking.
+
+- Weaknesses:
+  - Retail Business Register: Some lag in updating the status of businesses.
+  - Annual Retail Trade Survey: Limited coverage of micro-enterprises and online retailers.
+  - POS Data: Limited to larger retail chains, with insufficient representation of SMEs and independent retailers.
+
+- Recommendations:
+  1. Integration of Data Sources: Combine Tax Authority Records and POS Data with the Annual Retail Trade Survey to improve coverage for the entire retail sector, including SMEs.
+  2. Supplementation: Conduct targeted surveys or use third-party data sources to better capture data from online retailers and micro-businesses.
+  3. Data Quality Monitoring: Establish a regular data quality monitoring process, especially for external data sources, to ensure consistency and completeness over time.
+  4. Further Collaboration: Enhance collaboration with retail associations to improve data availability from smaller businesses and niche sectors.
+
+""" ;
+                                       rdfs:label "RTS - Assessment of Data Availability"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityCoreInput
+kshrts:CheckDataAvailabilityCoreInput rdf:type owl:NamedIndividual ,
+                                               :CoreInput ;
+                                      :correspondsToPI-PIS kshrts:CheckDataAvailabilityProcessInputSpecification ;
+                                      :refersToCI-IA kshrts:CheckDataAvailabilityInformationResources ,
+                                                     kshrts:CheckDataAvailabilityProvisionAgreement ;
+                                      rdfs:label "RTS - Check Data Availability - Process Input (Core Input)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityCoreOutput
+kshrts:CheckDataAvailabilityCoreOutput rdf:type owl:NamedIndividual ,
+                                                :CoreOutput ;
+                                       :correspondsToPO-POS kshrts:CheckDataAvailabilityProcessOutputSpecification ;
+                                       :refersToCO-IA kshrts:CheckDataAvailabilityAssessment ;
+                                       rdfs:label "RTS - Check Data Availability - Process Output (Core Output)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityInformationResources
+kshrts:CheckDataAvailabilityInformationResources rdf:type owl:NamedIndividual ,
+                                                          gsim-sum:InformationResource ;
+                                                 gsim-sum:hasValue-IA """- Retail Business Registry (Internal Data Source)
+- Annual Retail Trade Survey (Internal Data Source)
+- Tax Authority Records (External Data Source)
+- Point-of-Sale (POS) Transaction Data from Private Retailers (External Data Source)
+- Consumer Expenditure Survey (Internal Data Source)
+- Retail Price Index Data (Internal Data Source)""" ;
+                                                 rdfs:label "RTS - Information Resource"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityProcess
 kshrts:CheckDataAvailabilityProcess rdf:type owl:NamedIndividual ,
                                              :ProcessStep ;
+                                    :classifiedAs-PS <http://id.unece.org/models/gsbpm/1.5> ;
+                                    :createsPS-PO kshrts:CheckDataAvailabilityCoreOutput ;
+                                    :hasPS-PI kshrts:CheckDataAvailabilityCoreInput ;
+                                    :hasEndTime-PS "2018-03-01T20:00:00"^^xsd:dateTime ;
+                                    :hasStartTime-PS "2018-03-22T08:00:00"^^xsd:dateTime ;
                                     rdfs:label "RTS - Check Data Availability - Process"@en .
 
 
@@ -4109,7 +4381,7 @@ kshrts:CheckDataAvailabilityProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityProcessDesign
 kshrts:CheckDataAvailabilityProcessDesign rdf:type owl:NamedIndividual ,
                                                    :ProcessDesign ;
-                                          :classifiedAs <http://id.unece.org/models/gsbpm/1.5> ;
+                                          :classifiedAs-PD <http://id.unece.org/models/gsbpm/1.5> ;
                                           :hasPD-PCD kshrts:CheckDataAvailabilityProcessControlDesign ;
                                           :hasPD-PIS kshrts:CheckDataAvailabilityProcessInputSpecification ;
                                           :hasPD-POS kshrts:CheckDataAvailabilityProcessOutputSpecification ;
@@ -4150,9 +4422,99 @@ Quality measures of the Process Step such as:
                                                        rdfs:label "RTS - Check Data Availability - Process Output Specification"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#CheckDataAvailabilityProvisionAgreement
+kshrts:CheckDataAvailabilityProvisionAgreement rdf:type owl:NamedIndividual ,
+                                                        gsim-sum:ProvisionAgreement ;
+                                               gsim-sum:hasValue-IA """- Agreement for the Provision of Retail Business Tax Data to the National Statistics Office for Retail Trade Statistics Program
+Parties Involved:
+
+	•	Provider: National Tax Authority
+	•	Receiver: National Statistics Office (NSO)
+
+Objective:
+
+To provide detailed administrative data on retail businesses’ tax filings, sales turnover, and VAT payments for use in the Retail Trade Statistics Program by the NSO. This data will support the production of official retail trade statistics.
+
+Data to be Provided:
+
+	•	Dataset Description: Administrative records of all registered retail businesses, focusing on:
+	•	Turnover data: Annual declared sales turnover.
+	•	VAT records: Total VAT paid by each retail business.
+	•	Corporate tax records: Summary of corporate income tax filed.
+	•	Business identifiers: Business ID, industry classification (ISIC code), and geographic location.
+	•	Period Covered: January 1, 2023 – December 31, 2023.
+
+Frequency of Data Provision:
+
+	•	Quarterly delivery (first data due by March 31, 2024).
+
+Delivery Format:
+
+	•	Data Format: CSV or XML file, with predefined variable names and codes agreed upon in the technical annex.
+	•	Data Transfer Mechanism: Secure data transfer via encrypted file exchange system (SFTP).
+
+Confidentiality and Data Use:
+
+	•	Data Use Restrictions: The data provided by the National Tax Authority will only be used for statistical purposes related to the Retail Trade Statistics Program. The NSO agrees not to use the data for any operational, regulatory, or legal purposes.
+	•	Confidentiality Assurance: The NSO will anonymize any identifying business information before publication and ensure that no individual business can be identified in any published statistics.
+	•	Data Retention Period: The NSO will retain the data for a period of five years, after which it will be deleted unless a renewal agreement is in place.
+
+Quality Assurance:
+
+	•	The National Tax Authority agrees to provide complete and accurate data, with all known issues or discrepancies flagged. The NSO will work closely with the Tax Authority to resolve any data quality concerns.
+
+Amendments:
+
+	•	Any changes to the dataset, delivery schedule, or other provisions must be mutually agreed upon by both parties and documented in an addendum to this agreement.
+
+
+
+
+- Agreement for the Provision of Point-of-Sale (POS) Data from Major Retail Chains to the National Statistics Office for Retail Trade Statistics Program
+Parties Involved:
+
+	•	Provider: Retail Chain Association (representing large retail chains)
+	•	Receiver: National Statistics Office (NSO)
+
+Objective:
+
+To provide aggregated POS transaction data from large retail chains to the NSO for use in the Retail Trade Statistics Program, contributing to the accuracy and timeliness of retail sales measurements.
+
+Data to be Provided:
+
+	•	Dataset Description: Aggregated transaction data from participating retail chains:
+	•	Transaction details: Daily sales turnover, units sold, and product categories.
+	•	Geographic data: Regional breakdown of sales, based on store locations.
+	•	Period Covered: January 1, 2023 – December 31, 2023.
+
+Frequency of Data Provision:
+
+	•	Monthly data delivery (first data due by February 15, 2024).
+
+Delivery Format:
+
+	•	Data Format: CSV or JSON file, adhering to a predefined template.
+	•	Data Transfer Mechanism: Via secure API endpoint set up by the NSO, ensuring real-time or near real-time data exchange.
+
+Confidentiality and Data Use:
+
+	•	Data Use Restrictions: The NSO agrees that data will be used solely for statistical purposes and will not be shared with any third parties. The retail chain association retains the right to monitor and review the statistical outputs.
+	•	Anonymization: NSO will not publish any data that could identify specific retailers or their operational data. Only aggregate data (e.g., total sales by region) will be published.
+
+Data Quality:
+
+	•	The Retail Chain Association commits to providing high-quality data, including details on how the aggregation is conducted. The NSO may request clarification or additional detail to ensure statistical robustness.
+
+Review and Dispute Resolution:
+
+	•	A quarterly review meeting will be held to address any concerns related to data quality, timeliness, or other issues. Disputes will be resolved amicably, and failing that, through formal arbitration.""" ;
+                                               rdfs:label "RTS - Provision Agreement"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#ConsultAndConfirmNeeds
 kshrts:ConsultAndConfirmNeeds rdf:type owl:NamedIndividual ,
                                        :ProcessStep ;
+                              :classifiedAs-PS <http://id.unece.org/models/gsbpm/1.2> ;
                               :createsPS-PO kshrts:ConsultAndConfirmNeedsCoreOutput ;
                               :hasPS-PI kshrts:ConsultAndConfirmNeedsCoreInput ;
                               :hasEndTime-PS "2018-02-16T20:00:00"^^xsd:dateTime ;
@@ -4169,7 +4531,7 @@ kshrts:ConsultAndConfirmNeedsChangeDefinition rdf:type owl:NamedIndividual ,
 - Produce unadjusted, calendar-effect adjusted, seasonal and calendar-effect adjusted time series data on volume indices on sales in retail shops
 - Update the descriptive metadata templates for time series data and test the clarity of the information provided
 - Prepare volume indices on sales on a monthly basis, broken down by: food, non-food, fuel""" ;
-                                              rdfs:label "RTS - Consult and Confirm Needs - Change Definition"@en .
+                                              rdfs:label "RTS - Change Definition"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#ConsultAndConfirmNeedsCoreInput
@@ -4200,7 +4562,7 @@ kshrts:ConsultAndConfirmNeedsProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#ConsultAndConfirmNeedsProcessDesign
 kshrts:ConsultAndConfirmNeedsProcessDesign rdf:type owl:NamedIndividual ,
                                                     :ProcessDesign ;
-                                           :classifiedAs <http://id.unece.org/models/gsbpm/1.2> ;
+                                           :classifiedAs-PD <http://id.unece.org/models/gsbpm/1.2> ;
                                            :hasPD-PCD kshrts:ConsultAndConfirmNeedsProcessControlDesign ;
                                            :hasPD-PIS kshrts:ConsultAndConfirmNeedsProcessInputSpecification ;
                                            :hasPD-POS kshrts:ConsultAndConfirmNeedsProcessOutputSpecification ;
@@ -4240,9 +4602,130 @@ Quality measures of the Process Step such as:
                                                         rdfs:label "RTS - Consult and Confirm Needs - Process Output Specification"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcess
+kshrts:CreateFrameAndSampleProcess rdf:type owl:NamedIndividual ,
+                                            :ProcessStep ;
+                                   :classifiedAs-PS <http://id.unece.org/models/gsbpm/4.1> ;
+                                   :createsPS-PO kshrts:CreateFrameAndSampleProcessCoreOutput ;
+                                   :hasPS-PI kshrts:CreateFrameAndSampleProcessCoreInput ;
+                                   :hasEndTime-PS "2018-07-03T20:00:00"^^xsd:dateTime ;
+                                   :hasStartTime-PS "2018-07-01T08:00:00"^^xsd:dateTime ;
+                                   :usePS-PKG icspa:SampleSelectionService ;
+                                   rdfs:label "RTS - Create Frame And Sample - Process"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessControlDesign
+kshrts:CreateFrameAndSampleProcessControlDesign rdf:type owl:NamedIndividual ,
+                                                         :ProcessControlDesign ;
+                                                gsim-sum:hasValue-IA """Does the quality of the frame and of the sample meet acceptable measures?
+•	If no, go back to the beginning of Process Step and run again or review and improve the process (2.4. Design Frame and Sample)
+•	If yes, go to next Process Step
+""" ;
+                                                rdfs:label "RTS - Create Frame And Sample - Process Control Design"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessCoreInput
+kshrts:CreateFrameAndSampleProcessCoreInput rdf:type owl:NamedIndividual ,
+                                                     :CoreInput ;
+                                            :correspondsToPI-PIS kshrts:CreateFrameAndSampleProcessInputSpecification ;
+                                            :refersToCI-IA kshrts:DesignFrameAndSampleProcessDataSetAnnualRetailTrade ,
+                                                           kshrts:DesignFrameAndSampleProcessDataSetTaxAuthorityRecord ,
+                                                           kshrts:DesignFrameAndSampleProcessDataStructureAnnualRetailTrade ,
+                                                           kshrts:DesignFrameAndSampleProcessDataStructureTaxAuthorityRecord ,
+                                                           kshrts:DesignFrameAndSampleProcessStatisticalProgramDesign ,
+                                                           kshrts:Population ;
+                                            rdfs:label "RTS - Create Frame And Sample - Process Input (Core Input)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessCoreOutput
+kshrts:CreateFrameAndSampleProcessCoreOutput rdf:type owl:NamedIndividual ,
+                                                      :CoreOutput ;
+                                             :correspondsToPO-POS kshrts:DesignFrameAndSampleProcessOutputSpecification ;
+                                             :refersToCO-IA kshrts:CreateFrameAndSampleProcessDataStructureSample ,
+                                                            kshrts:CreateFrameAndSampleProcessDatasetSample ;
+                                             rdfs:label "RTS - Create Frame And Sample - Process Output (Core Output)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessDataStructureSample
+kshrts:CreateFrameAndSampleProcessDataStructureSample rdf:type owl:NamedIndividual ,
+                                                               gsim-sum:DataStructure ;
+                                                      gsim-sum:hasValue-IA "DataStructure of Retail Trade Statistics" ;
+                                                      rdfs:label "RTS - DataStructure - Retail Trade Statistics"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessDatasetSample
+kshrts:CreateFrameAndSampleProcessDatasetSample rdf:type owl:NamedIndividual ,
+                                                         gsim-sum:DataSet ;
+                                                gsim-sum:hasValue-IA "Sample of Retail Trade Statistics" ;
+                                                rdfs:label "RTS - Dataset - Sample of Retail Trade Statistics"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessDesign
+kshrts:CreateFrameAndSampleProcessDesign rdf:type owl:NamedIndividual ,
+                                                  :ProcessDesign ;
+                                         :classifiedAs-PD <http://id.unece.org/models/gsbpm/4.1> ;
+                                         :hasPD-PCD kshrts:CreateFrameAndSampleProcessControlDesign ;
+                                         :hasPD-PIS kshrts:CreateFrameAndSampleProcessInputSpecification ;
+                                         :hasPD-POS kshrts:CreateFrameAndSampleProcessOutputSpecification ;
+                                         :implementsPD-PM kshrts:CreateFrameAndSampleProcessMethod ;
+                                         :specifiesPD-PS kshrts:CreateFrameAndSampleProcess ;
+                                         rdfs:label "RTS - Create Frame And Sample - Process Design"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessInputSpecification
+kshrts:CreateFrameAndSampleProcessInputSpecification rdf:type owl:NamedIndividual ,
+                                                              :ProcessInputSpecification ;
+                                                     :coreInputType """Populations: specification of survey Population (based on frame specification)
+Data Sets that are used to create a frame and sample such as:
+•	Census data
+•	Administrative Register or Statistical Register
+•	Data Sets from sample survey of previous Statistical Program Cycle or similar Statistical Program (to be used to calculate response burden)
+•	Geospatial data 
+Data Structures describing the structure of Data Sets 
+Represented Variables to be used as linkage key and for stratification 
+Statistical Classifications to be used for sampling (e.g., stratification) 
+Process Methods: sample methodology specification (e.g., process to spread response burden and manage overlap or rotation, stratification methods) including Rules for data integration from multiple sources, if required
+""" ;
+                                                     :parameterInputType "Parameter values (e.g., accuracy level, sample size) to be used for sampling methods as specified in Process Method" ;
+                                                     :processSupportInputType "Policies or guidelines on how to create frame and sample " ;
+                                                     rdfs:label "RTS - Create Frame And Sample - Process Input Specification"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessMethod
+kshrts:CreateFrameAndSampleProcessMethod rdf:type owl:NamedIndividual ,
+                                                  :ProcessMethod ;
+                                         gsim-sum:hasValue-IA """-Review Population and Data Sets
+Set up frame based on, for example, Administrative Register, using Process Methods
+Select sample based using sample methodology as specified in Process Method in consideration of response burden, etc. 
+Calculate quality measures of frame and sample
+Approve the frame and sample
+""" ;
+                                         rdfs:label "RTS - Create Frame And Sample - Process Method"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#CreateFrameAndSampleProcessOutputSpecification
+kshrts:CreateFrameAndSampleProcessOutputSpecification rdf:type owl:NamedIndividual ,
+                                                               :ProcessOutputSpecification ;
+                                                      :coreInputType """Data Sets 
+•	Frame created
+•	Sample created 
+Data Structures describing the structure of Data Sets 
+Referential Metadata Sets describing Process Methods used, quality assurance report summarising Process Metrics to be passed along with Data Sets, record of approval of the frame and the selected sample or any other relevant information
+""" ;
+                                                      :processExecutionLogType """Execution logs such as
+- Time that Process Step started
+- Time that Process Step ended""" ;
+                                                      :processMetricType """Quality measures (e.g., extent to which the survey Population matches with the target Population)
+Quality measures of the Process Step such as:
+- Time spent to complete the Process Step (derived from Process Execution Log)
+- Cost spent to complete the Process Step""" ;
+                                                      rdfs:label "RTS - Create Frame And Sample - Process Output Specification"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignCollectionProcess
 kshrts:DesignCollectionProcess rdf:type owl:NamedIndividual ,
                                         :ProcessStep ;
+                               :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.3> ;
                                rdfs:label "RTS - Design Collection - Process"@en .
 
 
@@ -4258,7 +4741,7 @@ kshrts:DesignCollectionProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignCollectionProcessDesign
 kshrts:DesignCollectionProcessDesign rdf:type owl:NamedIndividual ,
                                               :ProcessDesign ;
-                                     :classifiedAs <http://id.unece.org/models/gsbpm/2.3> ;
+                                     :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.3> ;
                                      :hasPD-PCD kshrts:DesignCollectionProcessControlDesign ;
                                      :hasPD-PIS kshrts:DesignCollectionProcessInputSpecification ;
                                      :hasPD-POS kshrts:DesignCollectionProcessOutputSpecification ;
@@ -4318,6 +4801,12 @@ Quality measures of the Process Step such as:
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcess
 kshrts:DesignFrameAndSampleProcess rdf:type owl:NamedIndividual ,
                                             :ProcessStep ;
+                                   :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.4> ;
+                                   :createsPS-PO kshrts:DesignFrameAndSampleProcessCoreOutput ;
+                                   :hasPS-PI kshrts:DesignFrameAndSampleProcessCoreInput ;
+                                   :hasEndTime-PS "2018-04-20T20:00:00"^^xsd:dateTime ;
+                                   :hasStartTime-PS "2018-04-01T08:00:00"^^xsd:dateTime ;
+                                   rdfs:comment "This sub-process only applies to processes which involve data collection based on sampling, such as through statistical surveys. It identifies and specifies the population of interest, defines a sampling frame (and, where necessary, the register from which it is derived), and determines the most appropriate sampling criteria and methodology (which could include complete enumeration). Common sources for a sampling frame are administrative and statistical registers, censuses and information from other sample surveys. It may include geospatial data and classifications. This sub-process describes how these sources can be combined if needed. Analysis of whether the frame covers the target population should be performed. A sampling plan should be made. The actual sample is created in sub-process 4.1 (Create frame and select sample), using the methodology specified in this sub-process."@en ;
                                    rdfs:label "RTS - Design Frame And Sample - Process"@en .
 
 
@@ -4330,10 +4819,59 @@ kshrts:DesignFrameAndSampleProcessControlDesign rdf:type owl:NamedIndividual ,
                                                 rdfs:label "RTS - Design Frame And Sample - Process Control Design"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessCoreInput
+kshrts:DesignFrameAndSampleProcessCoreInput rdf:type owl:NamedIndividual ,
+                                                     :CoreInput ;
+                                            :correspondsToPI-PIS kshrts:DesignFrameAndSampleProcessInputSpecification ;
+                                            :refersToCI-IA kshrts:DesignFrameAndSampleProcessDataSetAnnualRetailTrade ,
+                                                           kshrts:DesignFrameAndSampleProcessDataSetTaxAuthorityRecord ,
+                                                           kshrts:DesignFrameAndSampleProcessDataStructureAnnualRetailTrade ,
+                                                           kshrts:DesignFrameAndSampleProcessDataStructureTaxAuthorityRecord ,
+                                                           kshrts:DesignOutputProcessStatisticalProgramDesign ,
+                                                           kshrts:PrepareAndSubmitBusinessCaseBusinessCase ;
+                                            rdfs:label "RTS - Design Frame And Sample - Process Input (Core Input)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessCoreOutput
+kshrts:DesignFrameAndSampleProcessCoreOutput rdf:type owl:NamedIndividual ,
+                                                      :CoreOutput ;
+                                             :correspondsToPO-POS kshrts:DesignFrameAndSampleProcessOutputSpecification ;
+                                             :refersToCO-IA kshrts:DesignFrameAndSampleProcessStatisticalProgramDesign ;
+                                             rdfs:label "RTS - Design Frame And Sample - Process Output (Core Output)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessDataSetAnnualRetailTrade
+kshrts:DesignFrameAndSampleProcessDataSetAnnualRetailTrade rdf:type owl:NamedIndividual ,
+                                                                    gsim-sum:DataSet ;
+                                                           gsim-sum:hasValue-IA "Annual Retail Trade Survey Result" ;
+                                                           rdfs:label "RTS - Dataset - Annual Retail Trade Survey Result"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessDataSetTaxAuthorityRecord
+kshrts:DesignFrameAndSampleProcessDataSetTaxAuthorityRecord rdf:type owl:NamedIndividual ,
+                                                                     gsim-sum:DataSet ;
+                                                            gsim-sum:hasValue-IA "Tax Authority Records" ;
+                                                            rdfs:label "RTS - Dataset - Tax Authority Records"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessDataStructureAnnualRetailTrade
+kshrts:DesignFrameAndSampleProcessDataStructureAnnualRetailTrade rdf:type owl:NamedIndividual ,
+                                                                          gsim-sum:DataStructure ;
+                                                                 gsim-sum:hasValue-IA "DataStructure of Annual Retail Trade Survey Result" ;
+                                                                 rdfs:label "RTS - DataStructure - Annual Retail Trade Survey Result"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessDataStructureTaxAuthorityRecord
+kshrts:DesignFrameAndSampleProcessDataStructureTaxAuthorityRecord rdf:type owl:NamedIndividual ,
+                                                                           gsim-sum:DataStructure ;
+                                                                  gsim-sum:hasValue-IA "DataStructure of Tax Authority Records" ;
+                                                                  rdfs:label "RTS - DataStructure - Tax Authority Records"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessDesign
 kshrts:DesignFrameAndSampleProcessDesign rdf:type owl:NamedIndividual ,
                                                   :ProcessDesign ;
-                                         :classifiedAs <http://id.unece.org/models/gsbpm/2.4> ;
+                                         :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.4> ;
                                          :hasPD-PCD kshrts:DesignFrameAndSampleProcessControlDesign ;
                                          :hasPD-PIS kshrts:DesignFrameAndSampleProcessInputSpecification ;
                                          :hasPD-POS kshrts:DesignFrameAndSampleProcessOutputSpecification ;
@@ -4382,9 +4920,136 @@ Quality measures of the Process Step such as:
                                                       rdfs:label "RTS - Design Frame And Sample - Process Output Specification"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignFrameAndSampleProcessStatisticalProgramDesign
+kshrts:DesignFrameAndSampleProcessStatisticalProgramDesign rdf:type owl:NamedIndividual ,
+                                                                    :StatisticalProgramDesign ;
+                                                           gsim-sum:hasValue-IA """1. Unit of Observation
+The unit of observation for the Retail Trade Statistics Program includes retail establishments operating within the country. These retail businesses are classified under NACE Rev. 2 codes for retail trade and include:
+- Supermarkets, hypermarkets, and department stores.
+- Specialized retail shops (e.g., electronics, clothing, food).
+- E-commerce platforms.
+- Fuel stations selling automotive fuel.
+
+Retail establishments are those that:
+- Have been operating for at least one year, or,
+- Are new but expected to continue operations for more than one year.
+
+
+
+2. Type of Observational Study
+The Retail Trade Statistics Program utilizes a Cross-Sectional Observational Study. Data collection focuses on capturing sales and retail trade activities during specific reference periods. This approach allows for the analysis of trends and patterns across retail sectors (e.g., food, non-food, fuel), contributing to economic assessments.
+
+
+
+3. Type of Unit of Observation
+The unit of observation is retail establishments, including both physical and online stores:
+- General retail (e.g., supermarkets, hypermarkets).
+- Specialized retail (e.g., electronics, food, and clothing shops).
+- Fuel retailers (e.g., gas stations).
+
+These establishments are distinguished by their nomenclature of types of shops and are categorized under NACE Rev. 2 codes.
+
+
+
+4. Process Method
+
+The Retail Trade Statistics Program uses a Stratified Two-Stage Sampling method, designed to optimize data accuracy while minimizing respondent burden.
+
+- Stratified Sampling: The population of retail establishments is divided into strata based on variables such as business size, geographic location, and type of retail activity (using NACE Rev. 2 classification). This ensures that different types of retail businesses are proportionally represented in the sample.
+
+- Two-Stage Sampling:
+  - First Stage: Selection of primary sampling units (PSUs) based on regions or types of retail outlets. The PSUs are chosen based on their contribution to overall retail sales.
+  - Second Stage: Selection of individual retail establishments within the selected PSUs. The sample size is determined based on the importance of each stratum to the total retail sector.
+
+- Respondent Burden: Efforts are made to reduce the burden on businesses by using administrative data (e.g., tax records) and existing business registers, minimizing the need for direct data collection where possible. Sampling for smaller retailers is done cautiously to avoid unnecessary strain on resources.
+
+- Classification Sample: Retail establishments are grouped by NACE Rev. 2 codes, ensuring each group is represented in the sample, especially in key retail sectors like food, non-food, and fuel.
+
+
+
+5. Data Structure
+
+The data collected in the Retail Trade Statistics Program are organized into the following data structure:
+- Establishment ID: Unique identifier for each retail business.
+- NACE Rev. 2 Classification Code: Identifies the sector and type of retail activity.
+- Geographic Location: Identifies the region where the retail business operates.
+- Sales Data: Monthly data on retail sales volumes, segmented by:
+  - Total sales.
+  - Sales of food, drinks, and tobacco.
+  - Sales of non-food items.
+  - Sales of automotive fuel.
+- Time Period: Each dataset corresponds to a specific reference period (monthly).
+- Adjustment Factors: Includes seasonal adjustment factors (using TRAMO/SEATS) for time series data.
+
+
+
+6. Represented Variables
+
+The key variables represented in the Retail Trade Statistics Program include:
+- Total Sales Volume: Aggregate retail sales for each establishment, measured in monetary terms or units sold.
+- Food Sales Volume: Sales of food, drinks, and tobacco in retail stores.
+- Non-Food Sales Volume: Sales of non-food products, including clothing, electronics, and household goods.
+- Fuel Sales Volume: Sales of automotive fuel in retail stations.
+- Geographical Area: The location of the retail establishment.
+- Time Period: Monthly and yearly reference periods for the data.
+- Seasonal Adjustment Factor: Applied to account for calendar and seasonal effects on retail sales data.
+
+
+
+7. Population
+
+The population for the Retail Trade Statistics Program is defined as:
+- All retail establishments (including online and physical stores) operating in the country, regardless of their size or legal form.
+- The population covers businesses classified under the NACE Rev. 2 retail trade sections, which include:
+  - G.47: Retail trade, except of motor vehicles and motorcycles.
+  - G.45: Retail trade of motor vehicles and motorcycles (with a focus on fuel sales).
+- This population includes both large retail chains and small independent shops.
+  
+The program targets retail businesses that:
+- Operate continuously for at least one year, or are new entrants expected to operate for more than one year.
+- Contribute to key commodity groups, such as food, non-food, and fuel.
+
+The sampling frame for the population is derived from the national business register, which lists active retail establishments categorized by their economic activity, location, and size.
+
+
+
+8. Frequency and Data Collection Cycle
+Data for the Retail Trade Statistics Program are collected on a monthly basis, ensuring timely updates of retail sales volumes and trends. Data must be submitted to Eurostat no later than 35 days after the end of the reference month, in line with STS Regulation requirements.
+
+
+
+9. Classification Standards
+
+The program employs the NACE Rev. 2 classification system, ensuring compliance with international statistical standards. This system classifies retail establishments into detailed economic sectors, making it easier to generate comparative data across different countries and sectors.
+
+
+
+10. Outputs
+
+The outputs of the Retail Trade Statistics Program include:
+- Changes in sales volumes, adjusted for calendar and seasonal effects.
+- Volume indices for food, non-food, and fuel sales, adjusted for calendar effects (same period of the previous year = 100.0).
+- Total retail sales volume indices, both adjusted and unadjusted for calendar effects.
+- Disaggregated data by retail sector and geographical region.
+  
+All outputs are formatted in SDMX and transmitted to Eurostat, ensuring international comparability and timely dissemination of retail trade statistics.
+
+
+
+11. Confidentiality and Data Protection
+
+Strict confidentiality measures are implemented:
+- No dissemination of aggregated data with fewer than three statistical units.
+- Secondary cell suppression is applied to protect sensitive business data, ensuring that individual retail establishments cannot be identified in published tables.
+
+""" ;
+                                                           rdfs:label "RTS - Statistical Program Design (Update #1)"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignOutputProcess
 kshrts:DesignOutputProcess rdf:type owl:NamedIndividual ,
                                     :ProcessStep ;
+                           :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.1> ;
                            rdfs:label "RTS - Design Output - Process"@en .
 
 
@@ -4400,7 +5065,7 @@ kshrts:DesignOutputProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignOutputProcessDesign
 kshrts:DesignOutputProcessDesign rdf:type owl:NamedIndividual ,
                                           :ProcessDesign ;
-                                 :classifiedAs <http://id.unece.org/models/gsbpm/2.1> ;
+                                 :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.1> ;
                                  :hasPD-PCD kshrts:DesignOutputProcessControlDesign ;
                                  :hasPD-PIS kshrts:DesignOutputProcessInputSpecification ;
                                  :hasPD-POS kshrts:DesignOutputProcessOutputSpecification ;
@@ -4446,9 +5111,77 @@ Quality measures of the Process Step such as:
                                               rdfs:label "RTS - Design Output - Process Output Specification"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#DesignOutputProcessStatisticalProgramDesign
+kshrts:DesignOutputProcessStatisticalProgramDesign rdf:type owl:NamedIndividual ,
+                                                            :StatisticalProgramDesign ;
+                                                   gsim-sum:hasValue-IA """1. Unit of Observation
+The unit of observation for the Retail Trade Statistics Program is retail establishments operating in the territory of the country. These include:
+- All retail businesses (physical and online) classified under NACE Rev. 2 categories for retail trade.
+- Retail businesses operating for at least one year or new retail businesses that are expected to continue operations for more than one year.
+  
+Retail establishments may include:
+- Supermarkets, hypermarkets, department stores.
+- Specialized retail shops (e.g., electronics, clothing, food).
+- E-commerce platforms.
+- Fuel stations selling automotive fuel.
+
+
+
+2. Type of Observational Study
+The Retail Trade Statistics Program is based on a Cross-Sectional Observational Study, focusing on collecting data at a specific point in time to capture current retail activities and sales trends. This approach allows the National Statistics Office (NSO) to:
+- Monitor retail sales volumes over time, adjusted for seasonal and calendar effects.
+- Generate periodic reports on the performance of retail sectors (e.g., food, non-food, fuel) for economic analysis.
+
+
+
+3. Type of Unit of Observation
+The unit of observation in this statistical program is retail establishments. These include:
+- Physical stores across different retail sectors (food, non-food, automotive fuel).
+- Online stores and e-commerce platforms that conduct retail trade.
+- Chain stores and independent retailers.
+  
+The program distinguishes retail establishments based on the nomenclature of types of shops:
+- General retail (e.g., supermarkets, hypermarkets).
+- Specialized retail (e.g., electronics, clothing, food stores).
+- Fuel retailers (e.g., gas stations selling automotive fuel).
+
+
+
+4. Frequency and Data Collection Cycle
+The Retail Trade Statistics Program follows a monthly data collection cycle. Data are collected and reported 35 days after the end of each reference month, in compliance with Eurostat and EU Short-Term Statistics (STS) Regulation requirements.
+
+The program includes both primary data collection through surveys and secondary data obtained from external sources (e.g., tax records, point-of-sale (POS) systems). Seasonal adjustments are applied using TRAMO/SEATS through JDemetra+.
+
+
+
+5. Classification Standards
+The program adheres to the NACE Rev. 2 classification system for all retail establishments. This ensures that the statistical outputs are aligned with both national and international standards, facilitating comparability and consistency across the retail trade sector.
+
+
+
+6. Outputs
+The key statistical outputs of the Retail Trade Statistics Program include:
+1. Changes in the volume of sales in retail shops, adjusted for calendar effects compared to the same period of the previous year.
+2. Volume indices on sales of food, drinks, and tobacco, adjusted for calendar effects (with the same period of the previous year = 100.0).
+3. Volume indices on sales of non-food products and automotive fuel, adjusted for calendar effects (same period of the previous year = 100.0).
+4. Total retail sales volume indices, both adjusted and unadjusted for calendar effects, comparing to the same period of the previous year (base = 100.0).
+
+All outputs are transmitted to Eurostat in SDMX format and are compliant with the STS Regulation.
+
+
+
+7. Confidentiality and Data Protection
+The program follows strict confidentiality rules:
+- Aggregated data with fewer than 3 statistical units will not be disseminated.
+- Secondary cell suppression will be used to protect individual business data in retail trade statistics tables.
+""" ;
+                                                   rdfs:label "RTS - Statistical Program Design"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignVariableDescriptionsProcess
 kshrts:DesignVariableDescriptionsProcess rdf:type owl:NamedIndividual ,
                                                   :ProcessStep ;
+                                         :classifiedAs-PS <http://id.unece.org/models/gsbpm/2.2> ;
                                          rdfs:label "RTS - Design Variable Descriptions - Process"@en .
 
 
@@ -4467,7 +5200,7 @@ Are there any duplications for Represented Variables descriptions as the result 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#DesignVariableDescriptionsProcessDesign
 kshrts:DesignVariableDescriptionsProcessDesign rdf:type owl:NamedIndividual ,
                                                         :ProcessDesign ;
-                                               :classifiedAs <http://id.unece.org/models/gsbpm/2.2> ;
+                                               :classifiedAs-PD <http://id.unece.org/models/gsbpm/2.2> ;
                                                :hasPD-PCD kshrts:DesignVariableDescriptionsProcessControlDesign ;
                                                :hasPD-PIS kshrts:DesignVariableDescriptionsProcessInputSpecification ;
                                                :hasPD-POS kshrts:DesignVariableDescriptionsProcessOutputSpecification ;
@@ -4542,7 +5275,7 @@ kshrts:EstablishOutputObjectivesChangeDefinition rdf:type owl:NamedIndividual ,
 * The TRAMO/SEATS method with JDemetra+ is to be used for seasonal adjustment of retail trade data, in accordance with the ESS guidelines on seasonal adjustment
 * Aggregated data with less than 3 statistical units shall not be disseminated and secondary cell suppression shall be used to ensure the protection of all retail trade statistics tables.
 * Retail trade statistics data shall be forwarded to Eurostat in SDMX format.""" ;
-                                                 rdfs:label "RTS - Establish Output Objectives - Change Definition"@en .
+                                                 rdfs:label "RTS - Change Definition (update #1)"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#EstablishOutputObjectivesCoreInput
@@ -4564,6 +5297,7 @@ kshrts:EstablishOutputObjectivesCoreOutput rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#EstablishOutputObjectivesProcess
 kshrts:EstablishOutputObjectivesProcess rdf:type owl:NamedIndividual ,
                                                  :ProcessStep ;
+                                        :classifiedAs-PS <http://id.unece.org/models/gsbpm/1.3> ;
                                         :createsPS-PO kshrts:EstablishOutputObjectivesCoreOutput ;
                                         :hasPS-PI kshrts:EstablishOutputObjectivesCoreInput ,
                                                   kshrts:EstablishOutputObjectivesProcessSupportInput ;
@@ -4584,7 +5318,7 @@ kshrts:EstablishOutputObjectivesProcessControlDesign rdf:type owl:NamedIndividua
 ###  https://www.ksh.hu/survey/retail-trade-statistics#EstablishOutputObjectivesProcessDesign
 kshrts:EstablishOutputObjectivesProcessDesign rdf:type owl:NamedIndividual ,
                                                        :ProcessDesign ;
-                                              :classifiedAs <http://id.unece.org/models/gsbpm/1.3> ;
+                                              :classifiedAs-PD <http://id.unece.org/models/gsbpm/1.3> ;
                                               :hasPD-PCD kshrts:EstablishOutputObjectivesProcessControlDesign ;
                                               :hasPD-PIS kshrts:EstablishOutputObjectivesProcessInputSpecification ;
                                               :hasPD-POS kshrts:EstablishOutputObjectivesProcessOutputSpecification ;
@@ -4645,7 +5379,7 @@ kshrts:IdentifyConceptChangeDefinition rdf:type owl:NamedIndividual ,
 - Retail sales: the purchases of finished goods and services by consumers and businesses
 - Nomenclature of type of shops: different types of shops, based on their specialisation
 - Major commodity group: commodities distinguished by their main characteristics. Minimum user need is to distinguish food, non-food and fuel groups""" ;
-                                       rdfs:label "RTS - Identify Concepts - Change Definition"@en .
+                                       rdfs:label "RTS - Change Definition (updaet #2)"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyConceptCoreInput
@@ -4667,6 +5401,7 @@ kshrts:IdentifyConceptCoreOutput rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyConceptProcess
 kshrts:IdentifyConceptProcess rdf:type owl:NamedIndividual ,
                                        :ProcessStep ;
+                              :classifiedAs-PS <http://id.unece.org/models/gsbpm/1.4> ;
                               :createsPS-PO kshrts:IdentifyConceptCoreOutput ;
                               :hasPS-PI kshrts:IdentifyConceptCoreInput ,
                                         kshrts:IdentifyConceptProcessSupportInput ;
@@ -4687,7 +5422,7 @@ kshrts:IdentifyConceptProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyConceptProcessDesign
 kshrts:IdentifyConceptProcessDesign rdf:type owl:NamedIndividual ,
                                              :ProcessDesign ;
-                                    :classifiedAs <http://id.unece.org/models/gsbpm/1.4> ;
+                                    :classifiedAs-PD <http://id.unece.org/models/gsbpm/1.4> ;
                                     :hasPD-PCD kshrts:IdentifyConceptProcessControlDesign ;
                                     :hasPD-PIS kshrts:IdentifyConceptProcessInputSpecification ;
                                     :hasPD-POS kshrts:IdentifyConceptProcessOutputSpecification ;
@@ -4741,7 +5476,7 @@ kshrts:IdentifyNeedsAssessment rdf:type owl:NamedIndividual ,
                                gsim-sum:hasIssues-Ass """Have all Information Requests, Environment Changes and Assessments checked and analysed for the identification of Statistical Needs?
 - If no, go back to the beginning of the Process Step and run again 
 - If yes, go to the Consult and Confirm Needs Process Step""" ;
-                               rdfs:label "RTS - Identify Needs - Assessment"@en .
+                               rdfs:label "RTS - Assessment"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyNeedsCoreInput
@@ -4766,7 +5501,7 @@ kshrts:IdentifyNeedsCoreOutput rdf:type owl:NamedIndividual ,
 kshrts:IdentifyNeedsEnvironmentChanges rdf:type owl:NamedIndividual ,
                                                 gsim-sum:EnvironmentChange ;
                                        gsim-sum:hasChangeOrigin-EC "NSI has access to retail trade data generated by electronic fiscal devices" ;
-                                       rdfs:label "RTS - Identify Needs - Environment Changes"@en .
+                                       rdfs:label "RTS - Environment Changes"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyNeedsInformationRequest
@@ -4777,7 +5512,7 @@ kshrts:IdentifyNeedsInformationRequest rdf:type owl:NamedIndividual ,
 - Users are also interested in sales of retails shops by type of shop
 - Users need time series data and infra-annual data
 - Eurostat needs volume indices on sales on a monthly basis, broken down by: food, non-food, fuel""" ;
-                                       rdfs:label "RTS - Identify Needs - Information Request"@en .
+                                       rdfs:label "RTS - Information Request"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyNeedsMethod
@@ -4792,6 +5527,7 @@ kshrts:IdentifyNeedsMethod rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyNeedsProcess
 kshrts:IdentifyNeedsProcess rdf:type owl:NamedIndividual ,
                                      :ProcessStep ;
+                            :classifiedAs-PS <http://id.unece.org/models/gsbpm/1.1> ;
                             :createsPS-PO kshrts:IdentifyNeedsCoreOutput ;
                             :hasPS-PI kshrts:IdentifyNeedsCoreInput ;
                             :hasEndTime-PS "2018-01-19T20:00:00"^^xsd:dateTime ;
@@ -4811,7 +5547,7 @@ kshrts:IdentifyNeedsProcessControlDesign rdf:type owl:NamedIndividual ,
 ###  https://www.ksh.hu/survey/retail-trade-statistics#IdentifyNeedsProcessDesign
 kshrts:IdentifyNeedsProcessDesign rdf:type owl:NamedIndividual ,
                                            :ProcessDesign ;
-                                  :classifiedAs <http://id.unece.org/models/gsbpm/1.1> ;
+                                  :classifiedAs-PD <http://id.unece.org/models/gsbpm/1.1> ;
                                   :hasPD-PCD kshrts:IdentifyNeedsProcessControlDesign ;
                                   :hasPD-PIS kshrts:IdentifyNeedsProcessInputSpecification ;
                                   :hasPD-POS kshrts:IdentifyNeedsProcessOutputSpecification ;
@@ -4853,12 +5589,127 @@ kshrts:IdentifyNeedsStatisticalNeed rdf:type owl:NamedIndividual ,
 - Provide infra-annual and time series data
 - For time series data, the comparability of data over time should be explained in more detail and in an easily understandable manner
 - Prepare volume indices on sales on a monthly basis, broken down by: food, non-food, fuel and prepare the datasets to be sent to Eurostat regularly""" ;
-                                    rdfs:label "RTS - Identify Needs - Statistical Need"@en .
+                                    rdfs:label "RTS - Statistical Need"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#Population
+kshrts:Population rdf:type owl:NamedIndividual ,
+                           gsim-sum:Population ;
+                  gsim-sum:hasValue-IA "Population of Retail Trade Statistics" ;
+                  rdfs:label "RTS - Population"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#PrepareAndSubmitBusinessCaseBusinessCase
+kshrts:PrepareAndSubmitBusinessCaseBusinessCase rdf:type owl:NamedIndividual ,
+                                                         gsim-sum:BusinessCase ;
+                                                gsim-sum:hasValue-IA """1. Executive Summary
+
+This Business Case outlines the Retail Trade Statistics Program led by the National Statistics Office (NSO) to enhance and modernize retail trade statistics, meeting national and international obligations. The program focuses on producing timely, high-quality indicators on retail trade volume changes, aligned with the STS Regulation and reporting requirements to Eurostat. This includes producing volume indices for different retail sectors (food, non-food, and fuel), adjusting data for seasonal and calendar effects, and ensuring compliance with confidentiality and data quality standards.
+
+
+
+2. Business Objectives
+
+The Retail Trade Statistics Program aims to:
+1. Deliver accurate and timely retail trade data to support policy decisions, economic analysis, and public understanding.
+2. Produce key retail trade indicators, such as sales volume changes and volume indices, adjusted for seasonal and calendar effects.
+3. Ensure compliance with Eurostat’s requirements and EU Short-Term Statistics (STS) Regulation for timely and accurate retail trade data transmission.
+4. Improve data usability by adopting NACE Rev. 2 classification and modernizing data processing with advanced seasonal adjustment methods like TRAMO/SEATS.
+5. Protect confidentiality while ensuring accessibility to high-quality data for users.
+
+
+
+3. Scope and Deliverables
+
+#Scope
+The program will:
+- Produce and publish indicators on retail sales volumes and indices for food, non-food, and fuel sectors.
+- Adjust retail sales data for seasonal and calendar effects, using TRAMO/SEATS in line with European Statistical System (ESS) guidelines.
+- Deliver SDMX-format data to Eurostat within the required deadlines (no later than 35 days after the end of each reference month).
+- Ensure all data are classified using NACE Rev. 2 to align with European standards.
+
+#Deliverables
+1. Retail Trade Indicators:
+   - Changes in the volume of sales in retail shops, adjusted for calendar effects compared to the same period of the previous year.
+   - Changes in the volume of sales in retail shops, adjusted for both seasonal and calendar effects compared to the monthly average of 2015.
+   - Volume indices on sales of food, non-food, and automotive fuel, adjusted for calendar effects (with the same period of the previous year = 100.0).
+   - Total retail sales volume indices, adjusted and unadjusted for calendar effects, comparing to the same period of the previous year (with base = 100.0).
+   
+2. Methodology and Classification:
+   - Seasonal adjustment using the TRAMO/SEATS method, implemented through JDemetra+, ensuring consistency with ESS seasonal adjustment guidelines.
+   - NACE Rev. 2 classification for all retail sales statistics.
+   
+3. Confidentiality and Data Dissemination:
+   - Confidentiality rules: No dissemination of aggregated data with fewer than three statistical units. Secondary cell suppression to protect all tables.
+   - Data format: Transmission to Eurostat in SDMX format.
+   
+4. Timeliness:
+   - Publish first estimates no later than 35 days after the end of the reference month.
+
+
+
+4. Strategic Alignment
+
+The Retail Trade Statistics Program is aligned with:
+- National and European data needs, providing key retail trade indicators for policymakers, economists, and businesses.
+- Eurostat’s Short-Term Statistics Regulation (STS Regulation), ensuring that all retail trade statistics are compliant with European Union regulations and meet required standards.
+- Economic policy: Retail sales are a crucial measure of economic activity, informing fiscal policy, inflation monitoring, and overall economic health.
+
+
+
+5. Key Performance Indicators (KPIs)
+
+To measure the success of the Retail Trade Statistics Program, the following KPIs are established:
+1. Timeliness: Retail trade data are delivered to Eurostat within 35 days after the end of the reference month.
+2. Data Quality: High accuracy and precision of sales volume indices, with minimal revisions post-publication.
+3. User Satisfaction: Positive feedback from national users (policymakers, businesses, researchers) and Eurostat on data quality, clarity, and usefulness.
+4. Confidentiality Compliance: Adherence to confidentiality rules (no dissemination of data with fewer than three statistical units).
+5. Data Integration: Successful transmission of SDMX-formatted data to Eurostat in compliance with international standards.
+
+
+
+6. Methodology and Statistical Framework
+
+#Retail Sales Measurement:
+Retail sales are measured as the purchases of finished goods by consumers and businesses. The program distinguishes sales by shop types (supermarkets, specialty stores, etc.) and major commodity groups, including:
+- Food, drinks, and tobacco.
+- Non-food products.
+- Automotive fuel.
+
+#Nomenclature of Types of Shops:
+The program will categorize retail shops based on specialization and industry classification using NACE Rev. 2. Key shop types include:
+- General retail (e.g., supermarkets, hypermarkets).
+- Specialized retail (e.g., electronics, clothing stores).
+- Fuel stations.
+
+#Major Commodity Groups:
+Commodities will be classified by their main characteristics, focusing on three primary groups:
+- Food.
+- Non-food.
+- Fuel.
+
+#Seasonal Adjustment:
+The TRAMO/SEATS method, applied through JDemetra+, will be used for seasonal adjustment. This method is approved under ESS guidelines and ensures accurate seasonal adjustment of retail trade data, accounting for calendar effects and other fluctuations.
+
+
+7. Benefits
+
+1. Improved Economic Analysis: Timely and detailed insights into retail sales patterns, supporting economic analysis and policymaking.
+2. Compliance with International Standards: Adherence to Eurostat’s requirements and the STS regulation ensures international comparability.
+3. Enhanced Data Usability: The integration of NACE Rev. 2 and advanced seasonal adjustment techniques improves data usability and accuracy.
+4. User Satisfaction: The timely publication of first estimates and detailed retail indices will meet the needs of users, from policymakers to researchers and businesses.
+""" ;
+                                                rdfs:label "RTS - Business Case"@en .
 
 
 ###  https://www.ksh.hu/survey/retail-trade-statistics#PrepareAndSubmitBusinessCaseProcess
 kshrts:PrepareAndSubmitBusinessCaseProcess rdf:type owl:NamedIndividual ,
                                                     :ProcessStep ;
+                                           :classifiedAs-PS <http://id.unece.org/models/gsbpm/1.6> ;
+                                           :createsPS-PO kshrts:PrepareAndSubmitBusinessCoreOutput ;
+                                           :hasBP-PS kshrts:PrepareAndSubmitBusinessCoreInput ;
+                                           :hasEndTime-PS "2018-01-19T20:00:00"^^xsd:dateTime ;
+                                           :hasStartTime-PS "2018-01-02T08:00:00"^^xsd:dateTime ;
                                            rdfs:label "RTS - Prepare And Submit Business Case - Process"@en .
 
 
@@ -4874,7 +5725,7 @@ kshrts:PrepareAndSubmitBusinessCaseProcessControlDesign rdf:type owl:NamedIndivi
 ###  https://www.ksh.hu/survey/retail-trade-statistics#PrepareAndSubmitBusinessCaseProcessDesign
 kshrts:PrepareAndSubmitBusinessCaseProcessDesign rdf:type owl:NamedIndividual ,
                                                           :ProcessDesign ;
-                                                 :classifiedAs <http://id.unece.org/models/gsbpm/1.6> ;
+                                                 :classifiedAs-PD <http://id.unece.org/models/gsbpm/1.6> ;
                                                  :hasPD-PCD kshrts:PrepareAndSubmitBusinessCaseProcessControlDesign ;
                                                  :hasPD-PIS kshrts:PrepareAndSubmitBusinessCaseProcessInputSpecification ;
                                                  :hasPD-POS kshrts:PrepareAndSubmitBusinessCaseProcessOutputSpecification ;
@@ -4924,6 +5775,22 @@ Quality measures of the Process Step such as:
                                                               rdfs:label "RTS - Prepare And Submit Business Case - Process Output Specification"@en .
 
 
+###  https://www.ksh.hu/survey/retail-trade-statistics#PrepareAndSubmitBusinessCoreInput
+kshrts:PrepareAndSubmitBusinessCoreInput rdf:type owl:NamedIndividual ,
+                                                  :CoreInput ;
+                                         :correspondsToPI-PIS kshrts:PrepareAndSubmitBusinessCaseProcessInputSpecification ;
+                                         :refersToCI-IA kshrts:CheckDataAvailabilityAssessment ;
+                                         rdfs:label "RTS - Prepare And Submit Business Case - Process Input (Core Input)"@en .
+
+
+###  https://www.ksh.hu/survey/retail-trade-statistics#PrepareAndSubmitBusinessCoreOutput
+kshrts:PrepareAndSubmitBusinessCoreOutput rdf:type owl:NamedIndividual ,
+                                                   :CoreOutput ;
+                                          :correspondsToPO-POS kshrts:PrepareAndSubmitBusinessCaseProcessOutputSpecification ;
+                                          :refersToCO-IA kshrts:PrepareAndSubmitBusinessCaseBusinessCase ;
+                                          rdfs:label "RTS - Prepare And Submit Business Case - Process Output (Core Output)"@en .
+
+
 ###  https://www.ksh.hu/survey/retail-trade-statistics#RetailTradeStatistics
 kshrts:RetailTradeStatistics rdf:type owl:NamedIndividual ,
                                       :StatisticalProgram ;
@@ -4948,7 +5815,8 @@ kshrts:RetailTradeStatisticsBusinessProcess rdf:type owl:NamedIndividual ,
                                                       kshrts:EstablishOutputObjectivesProcess ,
                                                       kshrts:IdentifyConceptProcess ,
                                                       kshrts:IdentifyNeedsProcess ,
-                                                      kshrts:PrepareAndSubmitBusinessCaseProcess ;
+                                                      kshrts:PrepareAndSubmitBusinessCaseProcess,
+                                                      kshrts:CreateFrameAndSampleProcess ;
                                             gsim-sum:hasName-IA "Retail Trade Statistics Business Process" ;
                                             rdfs:label "Retail Trade Statistics (RTS) Business Process"@en .
 
@@ -4965,6 +5833,24 @@ kshrts:RetailTradeStatisticsProgramCycle rdf:type owl:NamedIndividual ,
 #################################################################
 #    Annotations
 #################################################################
+
+cspa:gsbpmSubProcess rdfs:comment "See GSBPM documentation" ;
+                     rdfs:label "GSBPM sub-process" .
+
+
+cspa:gsimInput rdfs:label "GSIM Input" .
+
+
+cspa:gsimOutput rdfs:label "GSIM Output" .
+
+
+cspa:homepage rdfs:comment "Homepage of the service; a web page containing information about the service." ;
+              rdfs:label "Homepage" .
+
+
+cspa:installationGuide rdfs:comment "Document explaining how to install the service." ;
+                       rdfs:label "Installation guide" .
+
 
 cspa:label rdfs:label "Label" .
 
