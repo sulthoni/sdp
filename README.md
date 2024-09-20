@@ -247,6 +247,41 @@ WHERE {
 
 #### CQ7. Is the design or planned process always consistent with the actual process execution?
 
+_Example: To check whether the input of the Design Collection (SubProcess 3.2 GSBPM) of Indonesia Population Census 2020 process during the specification level is the same as during the implementation level._
+
+```SQL
+PREFIX : <https://w3id.org/sdp/core#>
+PREFIX gsim-sum: <https://w3id.org/italia/onto/gsim-sum#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX igsbpm: <http://id.unece.org/models/gsbpm/>
+SELECT
+	?StatisticalProgram ?ProcessDesign
+	?TypeMetadataPlan
+	?Process
+	?TypeMetadataReal
+WHERE {
+    ?StatisticalProgram :hasSP-SPC / :includesSPC-BP / :hasBP-PS ?Process .
+    ?ProcessDesign :specifiesPD-PS ?Process .
+    ?Process :classifiedAs-PS igsbpm:3.2 .
+    ?ProcessDesign :hasPD-PIS ?ProcessInputSpecification .
+    ?ProcessInputSpecification :coreInputType ?TypeMetadataPlan .
+    ?Process rdf:type :ProcessStep .
+    ?Process :hasPS-PI ?MetadataReal.
+    ?MetadataReal :refersToCI-IA ?TypeMetadataReal .
+}
+```
+
+Result
+| StatisticalProgram | ProcessDesign | TypeMetadataPlan | Process | TypeMetadataReal |
+| -- | -- | -- | -- | -- |
+| id-ps:Population<br>CensusProgram | id-ps:SP2020<br>DesignCollection<br>ProcessDesign | "Business Case" | id-ps:SP2020<br>DesignCollection<br>Process | id-ps:SP2020<br>DesignOutput<br>Statistical<br>ProgramDesign |
+| id-ps:Population<br>CensusProgram | id-ps:SP2020<br>DesignCollection<br>ProcessDesign | "Business Case" | id-ps:SP2020<br>DesignCollection<br>Process | id-ps:SP2020<br>DesignOutput<br>BusinessCase |
+| id-ps:Population<br>CensusProgram | id-ps:SP2020<br>DesignCollection<br>ProcessDesign | "Statistical Program Design" | id-ps:SP2020<br>DesignCollection<br>Process | id-ps:SP2020<br>DesignOutput<br>Statistical<br>Program<br>Design |
+| id-ps:Population<br>CensusProgram | id-ps:SP2020<br>DesignCollection<br>ProcessDesign | "Statistical Program Design" | id-ps:SP2020<br>DesignCollection<br>Process | id-ps:SP2020<br>DesignOutput<br>BusinessCase |
+
+\*Note: In the results above, repetition occurs due to the many-to-many relationship.
+
 #### CQ8. What applications can be used to assist processes in statistical data production?
 
 ```SQL
